@@ -3,9 +3,28 @@
 import { motion } from "framer-motion";
 import { Search, MapPin, Building2, Clock, Briefcase, IndianRupee } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 import { Job } from "@/lib/getJobs";
 
 export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [locationQuery, setLocationQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(5);
+
+  // Filter jobs based on search inputs
+  const filteredJobs = initialJobs.filter((job) => {
+    const matchesSearch = 
+      job.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      job.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      
+    const matchesLocation = job.location.toLowerCase().includes(locationQuery.toLowerCase());
+
+    return matchesSearch && matchesLocation;
+  });
+
+  const visibleJobs = filteredJobs.slice(0, visibleCount);
+
   return (
     <div className="max-w-6xl mx-auto relative z-10">
       <motion.div 
@@ -32,6 +51,8 @@ export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
             type="text" 
             placeholder="Search job title, skills, or company..." 
             className="w-full pl-12 pr-4 py-3 rounded-xl glass-input"
+            value={searchQuery}
+            onChange={(e) => { setSearchQuery(e.target.value); setVisibleCount(5); }}
           />
         </div>
         <div className="md:w-64 relative">
@@ -40,26 +61,31 @@ export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
             type="text" 
             placeholder="Location" 
             className="w-full pl-12 pr-4 py-3 rounded-xl glass-input"
+            value={locationQuery}
+            onChange={(e) => { setLocationQuery(e.target.value); setVisibleCount(5); }}
           />
         </div>
-        <button className="bg-[var(--color-brand-gold)] hover:bg-[var(--color-brand-gold-hover)] text-black font-bold px-8 py-3 rounded-xl transition-transform hover:scale-105">
+        <button 
+          onClick={() => setVisibleCount(5)}
+          className="bg-[var(--color-brand-gold)] hover:bg-[var(--color-brand-gold-hover)] text-black font-bold px-8 py-3 rounded-xl transition-transform hover:scale-105"
+        >
           Search
         </button>
       </motion.div>
 
       <div className="space-y-6">
-        {initialJobs.length === 0 ? (
+        {filteredJobs.length === 0 ? (
           <div className="text-center py-12 glass-card rounded-2xl">
-            <h3 className="text-2xl text-white font-bold mb-2">No jobs available right now</h3>
-            <p className="text-slate-400">Check back later or apply directly through our contact page.</p>
+            <h3 className="text-2xl text-white font-bold mb-2">No jobs found matching your criteria</h3>
+            <p className="text-slate-400">Try adjusting your search terms or location.</p>
           </div>
         ) : (
-          initialJobs.map((job, i) => (
+          visibleJobs.map((job, i) => (
             <motion.div 
               key={job.id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
+              transition={{ duration: 0.4, delay: (i % 5) * 0.1 }}
               className="glass-card p-6 md:p-8 rounded-3xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:border-[var(--color-brand-gold)]/40 transition-colors group"
             >
               <div className="flex-1">
@@ -110,9 +136,12 @@ export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
         )}
       </div>
       
-      {initialJobs.length > 0 && (
+      {filteredJobs.length > visibleCount && (
         <div className="mt-12 text-center">
-          <button className="px-8 py-3 glass text-white rounded-full hover:bg-white/5 transition-colors">
+          <button 
+            onClick={() => setVisibleCount(prev => prev + 5)}
+            className="px-8 py-3 glass text-white font-semibold rounded-full hover:bg-white/5 transition-colors"
+          >
             Load More Jobs
           </button>
         </div>
