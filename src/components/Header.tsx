@@ -1,12 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Menu } from "lucide-react";
-
+import { Menu, X } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <motion.header 
       initial={{ y: -100, opacity: 0 }}
@@ -26,6 +28,7 @@ export default function Header() {
           />
         </Link>
 
+        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8 font-medium">
           <Link href="/" className="text-slate-300 hover:text-white transition-colors">Home</Link>
           <Link href="/about" className="text-slate-300 hover:text-white transition-colors">About Us</Link>
@@ -41,11 +44,44 @@ export default function Header() {
           >
             Apply Now
           </Link>
-          <button className="md:hidden text-white p-2">
-            <Menu size={28} />
+          
+          {/* Mobile Menu Toggle */}
+          <button 
+            className="md:hidden text-white p-2 focus:outline-none"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
+
+      {/* Mobile Nav Dropdown */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden glass border-b border-white/10 overflow-hidden"
+          >
+            <div className="flex flex-col px-6 py-4 space-y-4">
+              <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-300 hover:text-white text-lg font-medium">Home</Link>
+              <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-300 hover:text-white text-lg font-medium">About Us</Link>
+              <Link href="/services" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-300 hover:text-white text-lg font-medium">Services</Link>
+              <Link href="/jobs" onClick={() => setIsMobileMenuOpen(false)} className="text-slate-300 hover:text-white text-lg font-medium">Jobs</Link>
+              <a href="https://wa.me/917697334430" target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-[var(--color-brand-gold)] text-lg font-medium">Contact</a>
+              
+              <Link 
+                href="/apply" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="mt-4 inline-flex items-center justify-center px-6 py-3 bg-[var(--color-brand-gold)] text-black font-bold rounded-xl"
+              >
+                Apply Now
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }

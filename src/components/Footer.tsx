@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#060e17] pt-16 pb-8 px-6 mt-20 relative z-10">
+    <footer className="border-t border-white/10 bg-[#060e17] pt-16 pb-28 md:pb-8 px-6 mt-20 relative z-10">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
         <div className="col-span-1 md:col-span-1">
           <Link href="/" className="flex items-center group mb-6">
@@ -25,10 +25,10 @@ export default function Footer() {
         <div>
           <h4 className="text-white font-semibold mb-6">Quick Links</h4>
           <ul className="space-y-3 text-sm text-slate-400">
-            <li><Link href="#about" className="hover:text-[var(--color-brand-gold)] transition-colors">About Us</Link></li>
-            <li><Link href="#jobs" className="hover:text-[var(--color-brand-gold)] transition-colors">Find Jobs</Link></li>
-            <li><Link href="#services" className="hover:text-[var(--color-brand-gold)] transition-colors">Services</Link></li>
-            <li><Link href="#admin" className="hover:text-[var(--color-brand-gold)] transition-colors">Recruiter Login</Link></li>
+            <li><Link href="/about" className="hover:text-[var(--color-brand-gold)] transition-colors">About Us</Link></li>
+            <li><Link href="/jobs" className="hover:text-[var(--color-brand-gold)] transition-colors">Find Jobs</Link></li>
+            <li><Link href="/services" className="hover:text-[var(--color-brand-gold)] transition-colors">Services</Link></li>
+            <li><a href="https://wa.me/917697334430" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-brand-gold)] transition-colors">Contact Support</a></li>
           </ul>
         </div>
 

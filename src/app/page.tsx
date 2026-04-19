@@ -24,7 +24,7 @@ export default function Home() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card w-fit border border-white/10">
               <Star className="text-[var(--color-brand-gold)]" size={16} fill="currentColor" />
-              <span className="text-sm font-medium text-slate-200">Premium Recruitment Platform</span>
+              <span className="text-sm font-medium text-slate-200">Your Trusted Hiring Partner</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white leading-tight">
@@ -90,12 +90,12 @@ export default function Home() {
                     <TrendingUp className="text-white" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-white">Software Engineer</h3>
-                    <p className="text-xs text-slate-400">Google • Remote</p>
+                    <h3 className="font-bold text-white">Full Stack Developer</h3>
+                    <p className="text-xs text-slate-400">TechCorp Solutions • Hybrid</p>
                   </div>
                 </div>
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-[var(--color-brand-gold)] font-medium">$120k - $150k</span>
+                  <span className="text-[var(--color-brand-gold)] font-medium">₹12L - ₹18L</span>
                   <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded text-xs">New</span>
                 </div>
               </motion.div>
