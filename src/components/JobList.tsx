@@ -125,7 +125,7 @@ export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
                   {job.posted}
                 </div>
                 <Link 
-                  href="/apply"
+                  href={`/apply?role=${encodeURIComponent(job.title)}`}
                   className="w-full md:w-auto px-8 py-3 glass hover:bg-white/10 text-white font-semibold rounded-xl transition-all border border-white/20 text-center"
                 >
                   Apply Now

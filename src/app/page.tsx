@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import { ArrowRight, Star, TrendingUp, Users, CheckCircle, Search } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -39,18 +40,18 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
-              <a 
-                href="#jobs" 
+              <Link 
+                href="/jobs" 
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[var(--color-brand-gold)] hover:bg-[var(--color-brand-gold-hover)] text-black font-bold rounded-full transition-all hover:scale-105 shadow-[0_0_20px_rgba(255,215,0,0.3)] text-lg"
               >
                 Find Jobs <Search size={20} />
-              </a>
-              <a 
-                href="#contact" 
+              </Link>
+              <Link 
+                href="/services" 
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 glass hover:bg-white/10 text-white font-bold rounded-full transition-all hover:scale-105 text-lg"
               >
                 Post a Job <ArrowRight size={20} />
-              </a>
+              </Link>
             </div>
             
             <div className="flex items-center gap-8 mt-8 pt-8 border-t border-white/10">
