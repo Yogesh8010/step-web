@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
@@ -19,13 +24,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col text-slate-200">
+    <html lang="en" className={`${inter.variable} ${manrope.variable} h-full antialiased`}>
+      <head>
+        <script dangerouslySetInnerHTML={{__html: `
+          try {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+            } else {
+              document.documentElement.classList.remove('dark');
+            }
+          } catch (_) {}
+        `}} />
+      </head>
+      <body className="min-h-full flex flex-col">
         <main className="flex-grow">{children}</main>
         
         <Footer />
         
-        {/* Floating WhatsApp Button Placeholder */}
+        {/* Floating WhatsApp Button */}
         <a 
           href="https://wa.me/917697334430" 
           target="_blank" 

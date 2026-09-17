@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
-import { UploadCloud, Send, User, Mail, Phone, Briefcase, Award } from "lucide-react";
+import { UploadCloud, Send, User, Mail, Phone, Briefcase, Award, ShieldCheck, CheckCircle } from "lucide-react";
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -56,67 +56,104 @@ function ApplyForm() {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.1 }}
-      className="glass p-8 md:p-10 rounded-3xl shadow-2xl border-t border-[var(--color-brand-gold)]/20"
+      transition={{ duration: 0.5 }}
+      className="bg-bg-card p-6 sm:p-10 rounded-2xl border border-border-main shadow-sm"
     >
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-5">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-              <User size={16} className="text-[var(--color-brand-gold)]" /> Full Name
+            <label className="text-xs font-bold uppercase tracking-wider text-text-heading flex items-center gap-1.5">
+              <User size={14} className="text-brand-accent" /> Full Name
             </label>
-            <input type="text" name="name" placeholder="John Doe" className="w-full px-4 py-3 rounded-xl glass-input transition-colors" required />
+            <input 
+              type="text" 
+              name="name" 
+              placeholder="e.g. John Doe" 
+              className="w-full px-4 py-2.5 rounded-lg glass-input text-sm" 
+              required 
+            />
           </div>
           
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-              <Phone size={16} className="text-[var(--color-brand-gold)]" /> Phone Number
+            <label className="text-xs font-bold uppercase tracking-wider text-text-heading flex items-center gap-1.5">
+              <Phone size={14} className="text-brand-accent" /> Phone Number
             </label>
-            <input type="tel" name="phone" placeholder="+91 98765 43210" className="w-full px-4 py-3 rounded-xl glass-input transition-colors" required />
+            <input 
+              type="tel" 
+              name="phone" 
+              placeholder="+91 98765 43210" 
+              className="w-full px-4 py-2.5 rounded-lg glass-input text-sm" 
+              required 
+            />
           </div>
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-            <Mail size={16} className="text-[var(--color-brand-gold)]" /> Email Address
+          <label className="text-xs font-bold uppercase tracking-wider text-text-heading flex items-center gap-1.5">
+            <Mail size={14} className="text-brand-accent" /> Email Address
           </label>
-          <input type="email" name="email" placeholder="john@example.com" className="w-full px-4 py-3 rounded-xl glass-input transition-colors" required />
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="john@example.com" 
+            className="w-full px-4 py-2.5 rounded-lg glass-input text-sm" 
+            required 
+          />
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-            <Briefcase size={16} className="text-[var(--color-brand-gold)]" /> Role Applied For
+          <label className="text-xs font-bold uppercase tracking-wider text-text-heading flex items-center gap-1.5">
+            <Briefcase size={14} className="text-brand-accent" /> Role Applied For
           </label>
-          <input type="text" name="role" defaultValue={roleFromUrl} placeholder="e.g. Full Stack Developer" className="w-full px-4 py-3 rounded-xl glass-input transition-colors" required />
+          <input 
+            type="text" 
+            name="role" 
+            defaultValue={roleFromUrl} 
+            placeholder="e.g. Full Stack Developer" 
+            className="w-full px-4 py-2.5 rounded-lg glass-input text-sm" 
+            required 
+          />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-5">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-              <Briefcase size={16} className="text-[var(--color-brand-gold)]" /> Years of Experience
+            <label className="text-xs font-bold uppercase tracking-wider text-text-heading flex items-center gap-1.5">
+              <Briefcase size={14} className="text-brand-accent" /> Experience Level
             </label>
-            <select name="experience" className="w-full px-4 py-3 rounded-xl glass-input transition-colors appearance-none bg-transparent" required>
-              <option value="" className="bg-[#0a192f] text-white">Select Experience</option>
-              <option value="Fresher" className="bg-[#0a192f] text-white">Fresher</option>
-              <option value="1-3 Years" className="bg-[#0a192f] text-white">1-3 Years</option>
-              <option value="3-5 Years" className="bg-[#0a192f] text-white">3-5 Years</option>
-              <option value="5+ Years" className="bg-[#0a192f] text-white">5+ Years</option>
+            <select 
+              name="experience" 
+              className="w-full px-4 py-2.5 rounded-lg glass-input text-sm bg-bg-main" 
+              required
+            >
+              <option value="">Select Experience</option>
+              <option value="Fresher">Fresher (0 Years)</option>
+              <option value="1-3 Years">1 - 3 Years</option>
+              <option value="3-5 Years">3 - 5 Years</option>
+              <option value="5+ Years">5+ Years</option>
             </select>
           </div>
           
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300 flex items-center gap-2">
-              <Award size={16} className="text-[var(--color-brand-gold)]" /> Primary Skills
+            <label className="text-xs font-bold uppercase tracking-wider text-text-heading flex items-center gap-1.5">
+              <Award size={14} className="text-brand-accent" /> Primary Skills
             </label>
-            <input type="text" name="skills" placeholder="e.g. React, Node.js, Sales" className="w-full px-4 py-3 rounded-xl glass-input transition-colors" required />
+            <input 
+              type="text" 
+              name="skills" 
+              placeholder="e.g. React, Node.js, Sales" 
+              className="w-full px-4 py-2.5 rounded-lg glass-input text-sm" 
+              required 
+            />
           </div>
         </div>
 
         <div className="space-y-2 pt-2">
-          <label className="text-sm font-medium text-slate-300">Upload Resume (PDF, DOCX)</label>
-          <div className="border-2 border-dashed border-white/20 rounded-xl p-8 text-center hover:border-[var(--color-brand-gold)]/50 transition-colors bg-white/[0.02] cursor-pointer group">
+          <label className="text-xs font-bold uppercase tracking-wider text-text-heading">
+            Resume / CV (PDF, DOCX)
+          </label>
+          <div className="border-2 border-dashed border-border-main rounded-xl p-6 text-center hover:border-brand-accent/60 transition-colors bg-bg-main cursor-pointer group">
             <input 
               type="file" 
               id="resume" 
@@ -124,34 +161,38 @@ function ApplyForm() {
               accept=".pdf,.doc,.docx" 
               onChange={(e) => setFileName(e.target.files?.[0]?.name || "")}
             />
-            <label htmlFor="resume" className="cursor-pointer flex flex-col items-center justify-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:scale-110 group-hover:bg-[var(--color-brand-gold)]/20 transition-all">
-                <UploadCloud size={24} className="text-[var(--color-brand-gold)]" />
+            <label htmlFor="resume" className="cursor-pointer flex flex-col items-center justify-center gap-2">
+              <div className="w-10 h-10 rounded-full bg-brand-accent/10 text-brand-accent flex items-center justify-center group-hover:scale-105 transition-transform">
+                <UploadCloud size={20} />
               </div>
-              <div className="text-slate-300">
+              <div className="text-xs text-text-body font-medium">
                 {fileName ? (
-                  <span className="text-green-400 font-medium">{fileName} selected</span>
+                  <span className="text-green-600 dark:text-green-400 font-semibold">{fileName} selected</span>
                 ) : (
-                  <><span className="text-[var(--color-brand-gold)] font-medium">Click to upload</span> or drag and drop</>
+                  <><span className="text-brand-accent font-semibold">Click to upload</span> or drag and drop</>
                 )}
               </div>
-              <p className="text-xs text-slate-500">Max file size: 5MB</p>
+              <p className="text-[11px] text-text-body/60">PDF, DOC, DOCX up to 5MB</p>
             </label>
           </div>
         </div>
 
-        <div className="pt-4">
+        <div className="pt-2">
           <button 
             type="submit" 
             disabled={isSubmitting}
-            className="w-full py-4 bg-[var(--color-brand-gold)] hover:bg-[var(--color-brand-gold-hover)] text-black font-bold rounded-xl transition-all hover:scale-[1.02] shadow-[0_0_15px_rgba(255,215,0,0.3)] flex items-center justify-center gap-2 text-lg disabled:opacity-70 disabled:hover:scale-100"
+            className="w-full py-3 bg-brand-accent hover:bg-brand-accent-hover text-white font-bold rounded-lg transition-colors shadow-sm flex items-center justify-center gap-2 text-sm disabled:opacity-60"
           >
-            {isSubmitting ? "Submitting..." : "Submit Application"} <Send size={20} />
+            {isSubmitting ? "Submitting Application..." : "Submit Application"} <Send size={16} />
           </button>
         </div>
-        <p className="text-xs text-center text-slate-500 mt-4">
-          By applying, you agree to our Terms of Service. Your application details will be securely saved and you will be redirected to WhatsApp to attach your resume directly.
-        </p>
+
+        <div className="pt-2 border-t border-border-main flex items-center justify-between text-[11px] text-text-body">
+          <span className="flex items-center gap-1 text-green-600 dark:text-green-400 font-semibold">
+            <CheckCircle size={13} /> 100% Free For Candidates
+          </span>
+          <span>Redirects to WhatsApp for resume attachment</span>
+        </div>
       </form>
     </motion.div>
   );
@@ -161,24 +202,26 @@ export default function Apply() {
   return (
     <>
       <Header />
-      <main className="pt-32 pb-24 px-6 relative overflow-hidden min-h-screen flex items-center justify-center">
-        {/* Background Gradients */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] bg-indigo-900/40 rounded-full mix-blend-screen filter blur-[128px]"></div>
-        
-        <div className="max-w-2xl w-full relative z-10">
+      <main className="pt-28 pb-24 px-4 sm:px-6 bg-bg-main min-h-screen transition-colors flex items-center justify-center">
+        <div className="max-w-2xl w-full">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-10"
+            className="text-center mb-8"
           >
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
-              Apply for <span className="text-[var(--color-brand-gold)]">Opportunities</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-accent/10 text-brand-accent text-xs font-semibold mb-3 border border-brand-accent/20">
+              <ShieldCheck size={14} /> Quick Candidate Application
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-text-heading mb-2 font-heading">
+              Apply for <span className="text-brand-accent">Opportunities</span>
             </h1>
-            <p className="text-slate-300">Take the next step in your career journey. Fill out the form below and let us connect you with top companies.</p>
+            <p className="text-xs sm:text-sm text-text-body max-w-md mx-auto">
+              Submit your candidate details. Our recruitment managers will review your profile and connect you with matching employers.
+            </p>
           </motion.div>
 
-          <Suspense fallback={<div className="text-center text-slate-300 p-8 glass rounded-3xl">Loading application form...</div>}>
+          <Suspense fallback={<div className="text-center text-text-body p-8 bg-bg-card border border-border-main rounded-xl">Loading application form...</div>}>
             <ApplyForm />
           </Suspense>
         </div>
