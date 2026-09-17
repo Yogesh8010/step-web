@@ -40,7 +40,7 @@ export default function Footer() {
             />
           </Link>
           <p className="text-text-body text-sm leading-relaxed max-w-sm">
-            A premium recruitment platform connecting the best talent with industry-leading companies across India.
+            Empowering futures and connecting top talent with industry-leading companies across India.
           </p>
           
           {/* Newsletter */}
