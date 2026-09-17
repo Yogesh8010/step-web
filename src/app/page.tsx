@@ -409,7 +409,27 @@ export default function Home() {
       {/* Testimonials Slider */}
       <section className="py-24 px-6 bg-bg-main relative z-10 transition-colors">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-extrabold text-text-heading mb-16 font-heading">What People Say</h2>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-extrabold text-text-heading mb-3 font-heading">What People Say</h2>
+            <p className="text-sm text-text-body mb-4">Read authentic reviews from placed professionals and corporate partners.</p>
+            <a 
+              href="https://maps.app.goo.gl/83WeGccke8hHNxMH9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-bg-card border border-border-main text-xs font-semibold text-text-heading hover:border-brand-accent transition-colors shadow-sm"
+              title="Read verified reviews on Google Maps"
+            >
+              <div className="flex text-yellow-400">
+                <Star size={13} fill="currentColor" />
+                <Star size={13} fill="currentColor" />
+                <Star size={13} fill="currentColor" />
+                <Star size={13} fill="currentColor" />
+                <Star size={13} fill="currentColor" />
+              </div>
+              <span>Rated 4.9 on Google • View Google Reviews</span>
+              <ArrowRight size={12} className="text-brand-accent" />
+            </a>
+          </div>
           
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((item, idx) => (

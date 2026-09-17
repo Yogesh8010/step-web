@@ -14,8 +14,57 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Step-Up Career | Premium Recruitment Platform",
-  description: "Find your dream job or the perfect candidate with Step-Up Career.",
+  metadataBase: new URL("https://stepup-career.in"),
+  title: {
+    default: "Step-Up Career | Best Job Consulting & Recruitment Portal",
+    template: "%s | Step-Up Career",
+  },
+  description: "Step-Up Career is India's leading job consultancy and recruitment portal. Connecting top talent with verified career opportunities in IT, Sales, Corporate, and Executive roles. Rated 4.9 on Google.",
+  keywords: [
+    "best job consulting",
+    "best job portal in India",
+    "job consulting portal",
+    "recruitment consultancy",
+    "recruitment agency in India",
+    "job placement consultancy Jabalpur",
+    "staffing firm Madhya Pradesh",
+    "IT recruitment consultancy",
+    "Step-Up Career",
+    "verified job opportunities",
+    "executive search India",
+    "hire talent India",
+    "career consulting"
+  ],
+  authors: [{ name: "Step-Up Career" }],
+  creator: "Step-Up Career",
+  publisher: "Step-Up Career",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "https://stepup-career.in",
+    siteName: "Step-Up Career",
+    title: "Step-Up Career | Best Job Consulting & Recruitment Portal",
+    description: "Discover verified jobs across India or hire top talent with Step-Up Career. Rated 4.9 on Google.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Step-Up Career | Best Job Consulting & Recruitment Portal",
+    description: "Discover verified jobs across India or hire top talent with Step-Up Career. Rated 4.9 on Google.",
+  },
+  alternates: {
+    canonical: "https://stepup-career.in",
+  },
 };
 
 export default function RootLayout({
@@ -23,6 +72,40 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "EmploymentAgency",
+    "name": "Step-Up Career",
+    "alternateName": "StepUp Career Job Consulting Portal",
+    "url": "https://stepup-career.in",
+    "logo": "https://stepup-career.in/logo.png",
+    "image": "https://stepup-career.in/logo.png",
+    "description": "Step-Up Career is a premier job consulting and recruitment platform in India offering verified job placements, IT staffing, non-IT hiring, and executive recruitment solutions.",
+    "telephone": "+91 76973 34430",
+    "email": "jobs@stepup-career.in",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Jabalpur",
+      "addressRegion": "Madhya Pradesh",
+      "postalCode": "482001",
+      "addressCountry": "IN"
+    },
+    "hasMap": "https://maps.app.goo.gl/83WeGccke8hHNxMH9",
+    "sameAs": [
+      "https://www.linkedin.com/company/stepupcareer/",
+      "https://www.instagram.com/step_upcareer/",
+      "https://maps.app.goo.gl/83WeGccke8hHNxMH9"
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "85",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "priceRange": "Free for Candidates"
+  };
+
   return (
     <html lang="en" className={`${inter.variable} ${manrope.variable} h-full antialiased`}>
       <head>
@@ -35,6 +118,10 @@ export default function RootLayout({
             }
           } catch (_) {}
         `}} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body className="min-h-full flex flex-col">
         <main className="flex-grow">{children}</main>

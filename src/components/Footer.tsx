@@ -92,8 +92,14 @@ export default function Footer() {
           <div>
             <h4 className="text-text-heading font-bold text-sm mb-4 tracking-wider uppercase">Trust Badges</h4>
             <div className="space-y-3">
-              {/* Google Rating Badge */}
-              <div className="flex items-center gap-2 bg-bg-main p-3 rounded-xl border border-border-main w-fit">
+              {/* Google Rating Badge with Direct Maps Review Link */}
+              <a 
+                href="https://maps.app.goo.gl/83WeGccke8hHNxMH9" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-bg-main hover:bg-border-main p-3 rounded-xl border border-border-main w-fit transition-colors group"
+                title="View Step-Up Career Google Reviews"
+              >
                 <div className="flex text-yellow-400">
                   <Star size={14} fill="currentColor" />
                   <Star size={14} fill="currentColor" />
@@ -101,8 +107,10 @@ export default function Footer() {
                   <Star size={14} fill="currentColor" />
                   <Star size={14} fill="currentColor" />
                 </div>
-                <span className="text-xs font-bold text-text-heading">4.9 Google Rating</span>
-              </div>
+                <span className="text-xs font-bold text-text-heading group-hover:text-brand-accent transition-colors">
+                  4.9 Google Reviews
+                </span>
+              </a>
               
               {/* MSME Registered Badge */}
               <div className="flex items-center gap-2 bg-bg-main p-3 rounded-xl border border-border-main w-fit">
