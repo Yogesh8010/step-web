@@ -6,7 +6,8 @@ import Link from "next/link";
 import { 
   ArrowRight, Star, TrendingUp, Users, CheckCircle, Search, 
   MapPin, Briefcase, Award, Shield, Timer, Globe, Heart, Share2,
-  Calendar, Layers, Sparkles, Database, BadgeCheck, Clock, IndianRupee
+  Calendar, Layers, Sparkles, Database, BadgeCheck, Clock, IndianRupee,
+  Cpu, Factory, BookOpen, Monitor
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Job } from "@/lib/getJobs";
@@ -58,19 +59,22 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
   };
 
   const services = [
-    { title: "IT Recruitment", desc: "Sourcing top-tier developers, QA testers, and tech leaders." },
-    { title: "Non-IT Hiring", desc: "End-to-end recruitment for retail, logistics, sales, and operations." },
-    { title: "Bulk Hiring", desc: "Scaling workforces quickly with coordinated high-volume recruitment drives." },
-    { title: "Contract Staffing", desc: "Flexible staffing options for project-based and temporary roles." },
-    { title: "Permanent Hiring", desc: "Acquiring permanent, value-driven full-time talent for your business." },
-    { title: "Campus Hiring", desc: "Connecting organizations directly with fresh graduates and promising talent." },
-    { title: "Executive Search", desc: "Identifying and recruiting senior management and C-level leaders." },
-    { title: "Project Staffing", desc: "Dedicated personnel models tailored to complete specific projects." },
-    { title: "Recruitment Advertising", desc: "Marketing your job posts to the right target candidate pools." },
-    { title: "Employer Branding", desc: "Enhancing your corporate reputation to attract passive candidates." },
-    { title: "Payroll Support", desc: "Streamlining external candidate onboarding and monthly payroll execution." },
-    { title: "AI Recruitment", desc: "Leveraging smart candidate sourcing and automated matching." },
-    { title: "HR Consulting", desc: "Designing workforce strategies and organizational structures." }
+    { id: "ems-electronics", title: "EMS & Electronics Staffing", desc: "Specialized hiring for PCB assembly, SMT line operations, embedded hardware, and cleanroom technicians." },
+    { id: "manufacturing-engineering", title: "Manufacturing & Heavy Engineering", desc: "End-to-end recruitment for plant operations, production engineering, factory supervision, and EHS safety." },
+    { id: "edtech-recruitment", title: "EdTech & Education Staffing", desc: "Sourcing top-tier academic counselors, B2C education sales leads, curriculum architects, and LMS specialists." },
+    { id: "it-recruitment", title: "IT Recruitment", desc: "Sourcing top-tier developers, QA automation specialists, cloud DevOps, and engineering leaders." },
+    { id: "non-it-hiring", title: "Non-IT Hiring", desc: "End-to-end recruitment for customer support, retail, corporate sales, accounting, and supply chain." },
+    { id: "bulk-hiring", title: "Bulk Hiring", desc: "Scaling workforces quickly with coordinated high-volume recruitment drives and walk-in funnels." },
+    { id: "contract-staffing", title: "Contract Staffing", desc: "Flexible staffing options for project-based deliverables and seasonal operational surges." },
+    { id: "permanent-hiring", title: "Permanent Hiring", desc: "Acquiring permanent, value-driven full-time talent aligned with long-term retention goals." },
+    { id: "campus-hiring", title: "Campus Hiring", desc: "Connecting organizations directly with fresh graduates and high-potential entry-level talent." },
+    { id: "executive-search", title: "Executive Search", desc: "Discreet headhunting for senior directors, VPs, and C-suite leadership roles." },
+    { id: "project-staffing", title: "Project Staffing", desc: "Dedicated personnel models tailored to complete specific technical and business milestones." },
+    { id: "recruitment-advertising", title: "Recruitment Advertising", desc: "Targeted campaigns marketing your job openings across specialized professional talent pools." },
+    { id: "employer-branding", title: "Employer Branding", desc: "Enhancing your corporate reputation to attract high-caliber passive industry candidates." },
+    { id: "payroll-support", title: "Payroll Support", desc: "Streamlining external candidate onboarding, statutory compliance, and monthly compensation disbursal." },
+    { id: "ai-recruitment", title: "AI Recruitment", desc: "Leveraging smart candidate sourcing, semantic taxonomy parsing, and automated match scoring." },
+    { id: "hr-consulting", title: "HR Consulting", desc: "Designing workforce strategies, compensation benchmarking, and organizational frameworks." }
   ];
 
   const valueProps = [
@@ -86,9 +90,9 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
   const timelineMilestones = [
     { year: "2025", title: "Step-Up Career Launch", desc: "Officially started operations with dedicated core team." },
     { year: "2025", title: "MSME Registered", desc: "Certified by the Ministry of Micro, Small & Medium Enterprises, Govt. of India." },
-    { year: "2026", title: "100+ Clients Served", desc: "Successfully partnered with top tech startups and retail giants." },
+    { year: "2026", title: "100+ Clients Served", desc: "Successfully partnered with top manufacturing, EMS, EdTech, and tech firms." },
     { year: "2026", title: "500+ Candidates Placed", desc: "Helped professional candidates land active full-time roles." },
-    { year: "2026", title: "PAN India Expansion", desc: "Expanded candidate networks to cover over 20+ major metropolitan cities." }
+    { year: "2026", title: "PAN India Expansion", desc: "Expanded candidate networks to cover over 20+ major metropolitan and industrial hubs." }
   ];
 
   const testimonials = [
@@ -109,7 +113,7 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
         {/* Subtle background gradients */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-accent/10 rounded-full mix-blend-screen filter blur-[128px]"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full grid lg:grid-cols-2 gap-12 items-center">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -121,13 +125,13 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
               <span className="text-xs font-semibold text-brand-accent tracking-wide uppercase">Empowering Futures • Connecting Talent</span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-text-heading leading-[1.1] font-heading">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-text-heading leading-[1.1] font-heading">
               Empowering Futures.<br />
               <span className="text-brand-accent">Connecting Talent.</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-text-body max-w-xl leading-relaxed">
-              Find verified opportunities across India with one trusted recruitment partner. We bridge the gap between world-class talent and leading organizations.
+            <p className="text-base sm:text-lg md:text-xl text-text-body max-w-xl leading-relaxed">
+              Find verified opportunities across India with one trusted recruitment partner. Specializing in EMS, Manufacturing, EdTech, IT, and Corporate staffing.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 mt-2">
@@ -190,7 +194,7 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
       
       {/* Live Statistics Section */}
       <section className="py-16 bg-bg-card border-y border-border-main transition-colors">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
           {[
             { value: "500+", label: "Candidates Placed" },
             { value: "50+", label: "Clients Served" },
@@ -207,14 +211,14 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
       </section>
 
       {/* Live Featured Jobs Section */}
-      <section id="jobs" className="py-24 px-6 bg-bg-main relative z-10 transition-colors">
+      <section id="jobs" className="py-24 px-4 sm:px-6 bg-bg-main relative z-10 transition-colors">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-accent/10 text-brand-accent text-xs font-semibold mb-2">
                 <Sparkles size={13} /> Live Job Openings
               </div>
-              <h2 className="text-4xl font-extrabold text-text-heading mb-3 font-heading">Featured Opportunities</h2>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-text-heading mb-3 font-heading">Featured Opportunities</h2>
               <p className="text-text-body max-w-2xl text-sm">Direct, active openings synced live from our verified recruitment database.</p>
             </div>
             <Link 
@@ -233,7 +237,7 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
               </Link>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {featuredJobs.map((job, idx) => {
                 const isSaved = !!savedJobs[job.id];
 
@@ -313,30 +317,31 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
         </div>
       </section>
 
-      {/* Services Grid Section */}
-      <section id="services" className="py-24 px-6 bg-bg-card border-y border-border-main relative z-10 transition-colors">
+      {/* Services Grid Section - Connected directly to specific tags on /services */}
+      <section id="services" className="py-24 px-4 sm:px-6 bg-bg-card border-y border-border-main relative z-10 transition-colors">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-extrabold text-text-heading mb-4 font-heading">Our Recruiting Services</h2>
-            <p className="text-text-body max-w-2xl mx-auto text-base">Comprehensive and custom workforce recruitment models to meet the requirements of any enterprise or startup.</p>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-text-heading mb-4 font-heading">Our Recruiting Services</h2>
+            <p className="text-text-body max-w-2xl mx-auto text-sm sm:text-base">Specialized recruitment solutions tailored for EMS, Manufacturing, EdTech, IT, and Enterprise businesses.</p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {services.map((svc, i) => (
               <motion.div 
-                key={i}
+                key={svc.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: (i % 3) * 0.1 }}
-                className="p-6 bg-bg-main border border-border-main rounded-xl hover:scale-[1.03] hover:border-brand-accent/40 transition-all flex flex-col justify-between"
+                transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
+                className="p-6 bg-bg-main border border-border-main rounded-xl hover:scale-[1.02] hover:border-brand-accent/40 transition-all flex flex-col justify-between"
               >
                 <div>
                   <h3 className="text-xl font-bold text-text-heading mb-2 font-heading">{svc.title}</h3>
                   <p className="text-sm text-text-body leading-relaxed">{svc.desc}</p>
                 </div>
+                {/* Direct anchor link to specific service tag */}
                 <Link 
-                  href="/services" 
+                  href={`/services#${svc.id}`}
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-accent hover:text-brand-accent-hover mt-6 uppercase tracking-wider"
                 >
                   Learn More <ArrowRight size={12} />
@@ -348,11 +353,11 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
       </section>
 
       {/* Why Choose Step-Up Career */}
-      <section className="py-24 px-6 bg-bg-main relative z-10 transition-colors">
+      <section className="py-24 px-4 sm:px-6 bg-bg-main relative z-10 transition-colors">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-extrabold text-text-heading mb-4 font-heading">Why Choose Step-Up Career</h2>
-            <p className="text-text-body max-w-2xl mx-auto text-base">We deliver speed, transparency, and nationwide reach to help corporate clients scale their workforce.</p>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-text-heading mb-4 font-heading">Why Choose Step-Up Career</h2>
+            <p className="text-text-body max-w-2xl mx-auto text-sm sm:text-base">We deliver speed, transparency, and nationwide reach to help corporate clients scale their workforce.</p>
           </div>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -379,11 +384,11 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
       </section>
 
       {/* Company Timeline */}
-      <section className="py-24 px-6 bg-bg-card border-y border-border-main relative z-10 transition-colors">
+      <section className="py-24 px-4 sm:px-6 bg-bg-card border-y border-border-main relative z-10 transition-colors">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-extrabold text-text-heading mb-4 font-heading">Our Timeline</h2>
-            <p className="text-text-body max-w-xl mx-auto">From registration to national footprint expansion, tracking our core milestones.</p>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-text-heading mb-4 font-heading">Our Timeline</h2>
+            <p className="text-text-body max-w-xl mx-auto text-sm">From registration to national footprint expansion, tracking our core milestones.</p>
           </div>
           
           {/* Vertical timeline */}
@@ -397,7 +402,6 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                 className="relative"
               >
-                {/* Bullet node */}
                 <div className="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-brand-accent border-4 border-bg-card flex items-center justify-center shadow-sm"></div>
                 
                 <span className="text-xs font-bold text-brand-accent tracking-wider uppercase">{item.year}</span>
@@ -409,11 +413,11 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
         </div>
       </section>
 
-      {/* Testimonials Slider */}
-      <section className="py-24 px-6 bg-bg-main relative z-10 transition-colors">
+      {/* Testimonials Section */}
+      <section className="py-24 px-4 sm:px-6 bg-bg-main relative z-10 transition-colors">
         <div className="max-w-4xl mx-auto text-center">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-extrabold text-text-heading mb-3 font-heading">What People Say</h2>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-text-heading mb-3 font-heading">What People Say</h2>
             <p className="text-sm text-text-body mb-4">Read authentic reviews from placed professionals and corporate partners.</p>
             <a 
               href="https://maps.app.goo.gl/83WeGccke8hHNxMH9"
@@ -434,7 +438,7 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
             </a>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
             {testimonials.map((item, idx) => (
               <motion.div 
                 key={idx}
@@ -442,7 +446,7 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.15 }}
-                className="p-6 bg-bg-card border border-border-main rounded-xl flex flex-col justify-between"
+                className="p-6 bg-bg-card border border-border-main rounded-xl flex flex-col justify-between shadow-sm"
               >
                 <div className="flex text-yellow-400 justify-center mb-4">
                   <Star size={16} fill="currentColor" />
@@ -464,15 +468,15 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
         </div>
       </section>
 
-      {/* Partner Logos Banner */}
+      {/* Partner Logos / Sectors Banner */}
       <section className="py-16 bg-bg-card border-t border-border-main relative z-10 transition-colors">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <p className="text-center text-xs font-semibold uppercase tracking-wider text-text-body mb-8">
             Partnering with trusted sectors across India
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-12 opacity-50 dark:opacity-40">
-            {["Information Technology", "Retail Operations", "BPO & Call Centers", "Sales & Marketing", "Healthcare Services"].map((sector, i) => (
-              <span key={i} className="text-lg font-bold tracking-widest text-text-body font-heading whitespace-nowrap">
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 opacity-60 dark:opacity-40">
+            {["EMS & Electronics", "Manufacturing & Heavy Engineering", "EdTech & Education", "Information Technology", "Retail & Consumer Operations", "BPO & Customer Success"].map((sector, i) => (
+              <span key={i} className="text-sm sm:text-base font-bold tracking-wider text-text-body font-heading whitespace-nowrap">
                 {sector}
               </span>
             ))}

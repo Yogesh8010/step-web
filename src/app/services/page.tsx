@@ -5,85 +5,120 @@ import Header from "@/components/Header";
 import { 
   Monitor, Users, UsersRound, FileClock, Presentation, Cog, 
   CheckCircle2, Building, GraduationCap, Crown, Briefcase, 
-  Megaphone, Award, Banknote, Bot, HelpCircle, ArrowRight, ShieldCheck
+  Megaphone, Award, Banknote, Bot, HelpCircle, ArrowRight, ShieldCheck,
+  Cpu, Factory, BookOpen
 } from "lucide-react";
 import Link from "next/link";
 
 export default function Services() {
   const services = [
     {
+      id: "ems-electronics",
+      title: "EMS & Electronics Staffing",
+      desc: "Specialized workforce solutions for Electronics Manufacturing Services (EMS), PCB assembly, SMT line operations, and hardware testing.",
+      icon: Cpu,
+      points: ["SMT & Through-Hole Line Operators", "PCB Layout & Embedded Engineers", "Quality Control & Testing Technicians", "Component Sourcing & Procurement"]
+    },
+    {
+      id: "manufacturing-engineering",
+      title: "Manufacturing & Heavy Engineering",
+      desc: "Comprehensive plant recruitment for manufacturing units, industrial automation, production engineering, and factory operations.",
+      icon: Factory,
+      points: ["Plant & Production Managers", "Mechanical & Electrical Engineers", "Shop-Floor Supervisors & Operators", "EHS & Industrial Safety Officers"]
+    },
+    {
+      id: "edtech-recruitment",
+      title: "EdTech & Education Staffing",
+      desc: "Sourcing top-tier academic counselors, curriculum creators, educational technologists, and student admission sales teams.",
+      icon: BookOpen,
+      points: ["Academic Counselors & BDA Sales", "Curriculum & Instructional Designers", "Subject Matter Experts (SMEs)", "LMS & Learning Platform Leads"]
+    },
+    {
+      id: "it-recruitment",
       title: "IT Recruitment",
       desc: "Specialized sourcing for software engineers, cloud architects, QA automation specialists, and tech leaders.",
       icon: Monitor,
       points: ["Full-Stack Developers", "Cloud & DevOps Specialists", "QA & Test Engineers", "Tech Leads & Architects"]
     },
     {
+      id: "non-it-hiring",
       title: "Non-IT Hiring",
       desc: "Comprehensive staffing solutions for retail, customer support, sales, accounting, and supply chain functions.",
       icon: Users,
       points: ["Customer Support / BPO", "B2B / B2C Sales Teams", "Finance & HR Operations", "Logistics & Supply Chain"]
     },
     {
+      id: "bulk-hiring",
       title: "Bulk Hiring",
       desc: "High-volume recruitment campaigns executed rapidly with high conversion ratios and standardized assessment.",
       icon: UsersRound,
       points: ["Mass recruitment drives", "Walk-in drive coordination", "Volume screening funnels", "Fast batch onboarding"]
     },
     {
+      id: "contract-staffing",
       title: "Contract Staffing",
       desc: "Flexible, agile workforce augmentation for seasonal projects, sprint surges, and temporary commercial needs.",
       icon: FileClock,
       points: ["Project-based hiring", "Interim staffing solutions", "Seasonal scale-ups", "Flexible tenure models"]
     },
     {
+      id: "permanent-hiring",
       title: "Permanent Hiring",
       desc: "Rigorous direct-hire recruitment focused on cultural alignment, performance record, and long-term retention.",
       icon: Building,
       points: ["Direct hire placements", "Culture & competency fit", "Salary negotiation support", "Replacement guarantee"]
     },
     {
+      id: "campus-hiring",
       title: "Campus Hiring",
       desc: "Structured university recruitment partnerships connecting forward-looking enterprises with top graduate talent.",
       icon: GraduationCap,
       points: ["Tier 1 & 2 college drives", "Aptitude & skill tests", "Campus hackathons", "Fresh graduate onboarding"]
     },
     {
+      id: "executive-search",
       title: "Executive Search",
       desc: "Discreet, consultative headhunting for CXOs, directors, and critical VP-level organizational decision-makers.",
       icon: Crown,
       points: ["Confidential headhunting", "Leadership track evaluation", "Strategic board alignment", "Executive package advisory"]
     },
     {
+      id: "project-staffing",
       title: "Project Staffing",
       desc: "Turnkey team assembly to deliver specific technical or business transformation milestones on schedule.",
       icon: Briefcase,
       points: ["Dedicated sprint units", "Milestone-driven SLA", "Cross-disciplinary squads", "Dedicated team leads"]
     },
     {
+      id: "recruitment-advertising",
       title: "Recruitment Advertising",
       desc: "Data-driven employer campaigns targeting passive candidate communities across social networks and industry portals.",
       icon: Megaphone,
       points: ["Targeted ad campaigns", "Job board optimization", "Talent pipeline nurture", "Conversion tracking"]
     },
     {
+      id: "employer-branding",
       title: "Employer Branding",
       desc: "Elevating your organizational reputation to position your company as an employer of choice in competitive markets.",
       icon: Award,
       points: ["Value proposition design", "Social reputation audits", "Workplace culture stories", "Candidate experience design"]
     },
     {
+      id: "payroll-support",
       title: "Payroll Support",
       desc: "End-to-end statutory compliance, contractor compensation, and onboarding documentation management.",
       icon: Banknote,
       points: ["Contractor payroll", "Statutory compliance", "Attendance & leave logs", "Seamless monthly disbursal"]
     },
     {
+      id: "ai-recruitment",
       title: "AI Recruitment",
       desc: "Smart resume parsing, automated candidate ranking, and algorithmic match filters to slash screening time.",
       icon: Bot,
       points: ["Automated resume screening", "Skill taxonomy matching", "Reduced time-to-hire", "Unbiased ranking"]
     },
     {
+      id: "hr-consulting",
       title: "HR Consulting",
       desc: "Consultative workforce advisory on compensation benchmarking, policy drafting, and organizational structure.",
       icon: Cog,
@@ -110,20 +145,21 @@ export default function Services() {
               Our <span className="text-brand-accent">Services</span>
             </h1>
             <p className="text-base md:text-lg text-text-body leading-relaxed">
-              Step-Up Career delivers scalable, high-velocity talent solutions engineered for enterprise stability and startup agility.
+              Step-Up Career delivers scalable, high-velocity talent solutions across EMS, Manufacturing, EdTech, IT, and Corporate sectors.
             </p>
           </motion.div>
 
-          {/* Services Grid (13 Cards) */}
+          {/* Services Grid with Specific Anchor IDs and scroll-mt-28 */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
             {services.map((svc, i) => (
               <motion.div 
-                key={svc.title}
+                key={svc.id}
+                id={svc.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: (i % 3) * 0.08 }}
-                className="p-6 bg-bg-card border border-border-main rounded-xl hover:border-brand-accent/50 hover:shadow-md hover:scale-[1.02] transition-all flex flex-col justify-between"
+                className="scroll-mt-28 p-6 bg-bg-card border border-border-main rounded-xl hover:border-brand-accent/50 hover:shadow-md hover:scale-[1.02] transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="w-12 h-12 bg-brand-accent/10 text-brand-accent border border-brand-accent/20 rounded-lg flex items-center justify-center mb-5">
@@ -154,7 +190,7 @@ export default function Services() {
             ))}
           </div>
 
-          {/* Approach & Differentiators (No emojis) */}
+          {/* Approach & Differentiators */}
           <div className="grid lg:grid-cols-2 gap-8 mb-24 items-stretch">
             {/* Approach */}
             <motion.div 
@@ -169,10 +205,10 @@ export default function Services() {
 
                 <div className="space-y-4">
                   {[
-                    { step: "01", title: "Requirement Scoping", desc: "Understanding the role technical stack, culture, and business imperatives." },
-                    { step: "02", title: "Talent Mapping", desc: "Targeting pre-screened talent networks and actively vetting passive candidates." },
-                    { step: "03", title: "Rigorous Screening", desc: "Multi-level technical and behavioral validation before client introduction." },
-                    { step: "04", title: "Fast Closure & Support", desc: "Coordinating interviews, offers, background checks, and onboarding." }
+                    { step: "01", title: "Requirement Scoping", desc: "Understanding the role technical stack, culture, plant specifications, and business imperatives." },
+                    { step: "02", title: "Talent Mapping", desc: "Targeting verified active talent networks and vetting specialized industry personnel." },
+                    { step: "03", title: "Rigorous Screening", desc: "Multi-level technical, operational, and behavioral validation before client introduction." },
+                    { step: "04", title: "Fast Closure & Support", desc: "Coordinating interviews, offers, background checks, and seamless onboarding." }
                   ].map((st) => (
                     <div key={st.step} className="flex items-start gap-4 p-3 bg-bg-main border border-border-main rounded-lg">
                       <span className="text-xs font-extrabold text-brand-accent px-2 py-1 bg-brand-accent/10 rounded">
@@ -203,7 +239,7 @@ export default function Services() {
                   {[
                     { title: "Rapid Turnaround Times", desc: "First batch of qualified profiles submitted within 48 to 72 hours." },
                     { title: "Zero Cost for Job Seekers", desc: "We are 100% free for candidates; our contracts are corporate-sponsored." },
-                    { title: "Pan-India Recruiting Reach", desc: "Ability to source talent across tier 1, tier 2, and tier 3 locations." },
+                    { title: "Pan-India Recruiting Reach", desc: "Ability to source talent across tier 1, tier 2, and tier 3 industrial hubs." },
                     { title: "Verified Employer Assurance", desc: "Every job order is vetted for legal compliance and career legitimacy." }
                   ].map((pt, i) => (
                     <div key={i} className="flex items-start gap-3 p-3 bg-bg-main border border-border-main rounded-lg">
@@ -217,7 +253,7 @@ export default function Services() {
                 </div>
               </div>
 
-              <div id="employers" className="mt-8 pt-6 border-t border-border-main">
+              <div id="employers" className="scroll-mt-28 mt-8 pt-6 border-t border-border-main">
                 <a 
                   href="https://wa.me/917697334430?text=Hi,%20I%20am%20an%20employer%20looking%20to%20hire%20talent."
                   target="_blank"
@@ -231,7 +267,7 @@ export default function Services() {
           </div>
 
           {/* Bottom Candidate & Employer Pathways */}
-          <div id="candidates" className="bg-bg-card border border-border-main p-10 rounded-2xl text-center">
+          <div id="candidates" className="scroll-mt-28 bg-bg-card border border-border-main p-10 rounded-2xl text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-text-heading font-heading mb-3">
               Looking for Your Next Career Opportunity?
             </h2>

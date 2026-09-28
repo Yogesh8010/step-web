@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Menu, X, Sun, Moon, Search } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 function LinkedinIcon({ size = 18, className = "" }: { size?: number; className?: string }) {
   return (
@@ -29,14 +30,30 @@ function InstagramIcon({ size = 18, className = "" }: { size?: number; className
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState("light");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     if (document.documentElement.classList.contains("dark")) {
       setTheme("dark");
     } else {
       setTheme("light");
     }
   }, []);
+
+  // Lock background scroll when mobile drawer is open (crucial for iOS Safari & Android)
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      const originalOverflow = document.body.style.overflow;
+      const originalTouchAction = document.body.style.touchAction;
+      document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        document.body.style.touchAction = originalTouchAction;
+      };
+    }
+  }, [isMobileMenuOpen]);
 
   const toggleTheme = () => {
     if (theme === "light") {
@@ -61,194 +78,206 @@ export default function Header() {
   ];
 
   return (
-    <motion.header 
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 glass border-b border-border-main"
-    >
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center group shrink-0">
-          <Image 
-            src="/logo.png" 
-            alt="Step-Up Career Logo" 
-            width={160} 
-            height={50} 
-            className="group-hover:scale-102 transition-transform dark:brightness-110"
-            priority
-          />
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav className="hidden xl:flex items-center gap-6 font-semibold text-sm">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
-              href={link.href} 
-              className="text-text-body hover:text-brand-accent transition-colors"
-            >
-              {link.name}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Social Icons, Theme Toggle & CTAs */}
-        <div className="hidden lg:flex items-center gap-4">
-          {/* Global Search Icon Link */}
-          <Link href="/jobs" className="text-text-body hover:text-brand-accent p-2 transition-colors" title="Search Jobs">
-            <Search size={18} />
-          </Link>
-
-          {/* Social Icons */}
-          <a 
-            href="https://www.linkedin.com/company/stepupcareer/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-text-body hover:text-brand-accent p-2 transition-colors"
-            title="LinkedIn"
-          >
-            <LinkedinIcon size={18} />
-          </a>
-          <a 
-            href="https://www.instagram.com/step_upcareer/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-text-body hover:text-brand-accent p-2 transition-colors"
-            title="Instagram"
-          >
-            <InstagramIcon size={18} />
-          </a>
-
-          {/* Theme Toggle */}
-          <button 
-            onClick={toggleTheme} 
-            className="text-text-body hover:text-brand-accent p-2 transition-colors rounded-full hover:bg-bg-card"
-            title="Toggle theme"
-          >
-            {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
-          </button>
-
-          {/* Login Placeholder */}
-          <Link 
-            href="/apply" 
-            className="text-sm font-semibold text-text-body hover:text-brand-accent transition-colors px-4 py-2"
-          >
-            Login
-          </Link>
-
-          {/* Apply Now CTA */}
-          <Link 
-            href="/apply" 
-            className="inline-flex items-center justify-center px-5 py-2.5 bg-brand-accent hover:bg-brand-accent-hover text-white text-sm font-semibold rounded-lg transition-all hover:scale-102 shadow-sm"
-          >
-            Apply Now
-          </Link>
-        </div>
-
-        {/* Mobile controls & Drawer Button */}
-        <div className="flex lg:hidden items-center gap-3">
-          <button 
-            onClick={toggleTheme} 
-            className="text-text-body hover:text-brand-accent p-2 transition-colors rounded-full hover:bg-bg-card"
-          >
-            {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
-          </button>
-
-          <button 
-            className="text-text-heading p-2 focus:outline-none"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle Menu"
-          >
-            {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Drawer */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.4 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black z-40 lg:hidden"
-              onClick={() => setIsMobileMenuOpen(false)}
+    <>
+      <header className="fixed top-0 left-0 right-0 z-40 glass border-b border-border-main">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center group shrink-0">
+            <Image 
+              src="/logo.png" 
+              alt="Step-Up Career Logo" 
+              width={160} 
+              height={50} 
+              className="group-hover:scale-102 transition-transform dark:brightness-110 w-auto h-9 sm:h-11"
+              priority
             />
-            {/* Drawer */}
-            <motion.div 
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "tween", duration: 0.3 }}
-              className="fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-bg-main border-l border-border-main z-50 p-6 flex flex-col justify-between lg:hidden shadow-2xl"
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav className="hidden xl:flex items-center gap-6 font-semibold text-sm">
+            {navLinks.map((link) => (
+              <Link 
+                key={link.name} 
+                href={link.href} 
+                className="text-text-body hover:text-brand-accent transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Social Icons, Theme Toggle & CTAs (Desktop) */}
+          <div className="hidden lg:flex items-center gap-4">
+            {/* Global Search Icon Link */}
+            <Link href="/jobs" className="text-text-body hover:text-brand-accent p-2 transition-colors" title="Search Jobs">
+              <Search size={18} />
+            </Link>
+
+            {/* Social Icons */}
+            <a 
+              href="https://www.linkedin.com/company/stepupcareer/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-text-body hover:text-brand-accent p-2 transition-colors"
+              title="LinkedIn"
             >
-              <div className="space-y-6">
-                <div className="flex items-center justify-between pb-6 border-b border-border-main">
-                  <Image 
-                    src="/logo.png" 
-                    alt="Step-Up Career Logo" 
-                    width={130} 
-                    height={40} 
-                    className="dark:brightness-110"
-                  />
-                  <button 
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-text-heading p-2"
-                  >
-                    <X size={24} />
-                  </button>
-                </div>
+              <LinkedinIcon size={18} />
+            </a>
+            <a 
+              href="https://www.instagram.com/step_upcareer/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-text-body hover:text-brand-accent p-2 transition-colors"
+              title="Instagram"
+            >
+              <InstagramIcon size={18} />
+            </a>
 
-                <nav className="flex flex-col space-y-4 font-semibold text-lg">
-                  {navLinks.map((link) => (
-                    <Link 
-                      key={link.name} 
-                      href={link.href} 
-                      onClick={() => setIsMobileMenuOpen(false)} 
-                      className="text-text-body hover:text-brand-accent transition-colors"
+            {/* Theme Toggle */}
+            <button 
+              onClick={toggleTheme} 
+              className="text-text-body hover:text-brand-accent p-2 transition-colors rounded-full hover:bg-bg-card"
+              title="Toggle theme"
+            >
+              {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+            </button>
+
+            {/* Login Placeholder */}
+            <Link 
+              href="/apply" 
+              className="text-sm font-semibold text-text-body hover:text-brand-accent transition-colors px-4 py-2"
+            >
+              Login
+            </Link>
+
+            {/* Apply Now CTA */}
+            <Link 
+              href="/apply" 
+              className="inline-flex items-center justify-center px-5 py-2.5 bg-brand-accent hover:bg-brand-accent-hover text-white text-sm font-semibold rounded-lg transition-all hover:scale-102 shadow-sm"
+            >
+              Apply Now
+            </Link>
+          </div>
+
+          {/* Mobile Controls & Hamburger Button (Optimized for iOS & Touch) */}
+          <div className="flex lg:hidden items-center gap-2">
+            <button 
+              onClick={toggleTheme} 
+              className="text-text-body hover:text-brand-accent p-2.5 transition-colors rounded-full hover:bg-bg-card active:scale-95 touch-manipulation"
+              aria-label="Toggle dark mode"
+            >
+              {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+            </button>
+
+            <button 
+              type="button"
+              className="min-w-[44px] min-h-[44px] flex items-center justify-center text-text-heading p-2 rounded-lg hover:bg-bg-card active:scale-95 touch-manipulation cursor-pointer select-none"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
+            >
+              {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Drawer Rendered via Portal directly to body (Fixes iOS Safari transform & stacking bugs) */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <div className="fixed inset-0 z-50 lg:hidden pointer-events-auto">
+              {/* Backdrop */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.5 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+                onClick={() => setIsMobileMenuOpen(false)}
+              />
+
+              {/* Drawer */}
+              <motion.div 
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "tween", duration: 0.25, ease: "easeOut" }}
+                className="fixed top-0 right-0 bottom-0 w-[300px] max-w-[85vw] h-[100dvh] bg-bg-main border-l border-border-main p-6 flex flex-col justify-between shadow-2xl overscroll-contain z-10"
+              >
+                <div className="space-y-6">
+                  {/* Drawer Header */}
+                  <div className="flex items-center justify-between pb-5 border-b border-border-main">
+                    <Image 
+                      src="/logo.png" 
+                      alt="Step-Up Career Logo" 
+                      width={130} 
+                      height={40} 
+                      className="dark:brightness-110 w-auto h-8"
+                    />
+                    <button 
+                      type="button"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="min-w-[44px] min-h-[44px] flex items-center justify-center text-text-heading p-2 rounded-lg hover:bg-bg-card active:scale-95 touch-manipulation"
+                      aria-label="Close menu"
                     >
-                      {link.name}
-                    </Link>
-                  ))}
-                </nav>
-              </div>
+                      <X size={24} />
+                    </button>
+                  </div>
 
-              <div className="space-y-6 pt-6 border-t border-border-main">
-                {/* Social media inside mobile menu */}
-                <div className="flex items-center gap-4 justify-center">
-                  <a 
-                    href="https://www.linkedin.com/company/stepupcareer/" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="text-text-body hover:text-brand-accent p-2 transition-colors"
-                  >
-                    <LinkedinIcon size={22} />
-                  </a>
-                  <a 
-                    href="https://www.instagram.com/step_upcareer/" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="text-text-body hover:text-brand-accent p-2 transition-colors"
-                  >
-                    <InstagramIcon size={22} />
-                  </a>
+                  {/* Navigation Links */}
+                  <nav className="flex flex-col space-y-3 font-semibold text-base">
+                    {navLinks.map((link) => (
+                      <Link 
+                        key={link.name} 
+                        href={link.href} 
+                        onClick={() => setIsMobileMenuOpen(false)} 
+                        className="py-2 px-3 rounded-lg text-text-body hover:text-brand-accent hover:bg-bg-card transition-colors active:bg-bg-card touch-manipulation"
+                      >
+                        {link.name}
+                      </Link>
+                    ))}
+                  </nav>
                 </div>
 
-                <Link 
-                  href="/apply" 
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full py-3 bg-brand-accent hover:bg-brand-accent-hover text-white text-center font-bold rounded-lg block shadow-sm"
-                >
-                  Apply Now
-                </Link>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </motion.header>
+                {/* Drawer Footer Actions */}
+                <div className="space-y-5 pt-6 border-t border-border-main">
+                  {/* Social media inside mobile menu */}
+                  <div className="flex items-center gap-4 justify-center">
+                    <a 
+                      href="https://www.linkedin.com/company/stepupcareer/" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-text-body hover:text-brand-accent p-2.5 rounded-lg border border-border-main bg-bg-card transition-colors"
+                      title="LinkedIn"
+                    >
+                      <LinkedinIcon size={20} />
+                    </a>
+                    <a 
+                      href="https://www.instagram.com/step_upcareer/" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-text-body hover:text-brand-accent p-2.5 rounded-lg border border-border-main bg-bg-card transition-colors"
+                      title="Instagram"
+                    >
+                      <InstagramIcon size={20} />
+                    </a>
+                  </div>
+
+                  <Link 
+                    href="/apply" 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="w-full py-3 bg-brand-accent hover:bg-brand-accent-hover text-white text-center font-bold rounded-lg block shadow-sm text-sm active:scale-98 transition-transform touch-manipulation"
+                  >
+                    Apply Now
+                  </Link>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+    </>
   );
 }

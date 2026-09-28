@@ -79,11 +79,11 @@ export default function Footer() {
         <div>
           <h4 className="text-text-heading font-bold text-sm mb-6 tracking-wider uppercase">Services</h4>
           <ul className="space-y-3 text-sm text-text-body">
-            <li><Link href="/services" className="hover:text-brand-accent transition-colors">IT Recruitment</Link></li>
-            <li><Link href="/services" className="hover:text-brand-accent transition-colors">Non-IT Hiring</Link></li>
-            <li><Link href="/services" className="hover:text-brand-accent transition-colors">Bulk Staffing</Link></li>
-            <li><Link href="/services" className="hover:text-brand-accent transition-colors">Contractual Workforce</Link></li>
-            <li><Link href="/services" className="hover:text-brand-accent transition-colors">Executive Search</Link></li>
+            <li><Link href="/services#ems-electronics" className="hover:text-brand-accent transition-colors">EMS & Electronics</Link></li>
+            <li><Link href="/services#manufacturing-engineering" className="hover:text-brand-accent transition-colors">Manufacturing Staffing</Link></li>
+            <li><Link href="/services#edtech-recruitment" className="hover:text-brand-accent transition-colors">EdTech Recruitment</Link></li>
+            <li><Link href="/services#it-recruitment" className="hover:text-brand-accent transition-colors">IT Recruitment</Link></li>
+            <li><Link href="/services#bulk-hiring" className="hover:text-brand-accent transition-colors">Bulk Staffing</Link></li>
           </ul>
         </div>
 

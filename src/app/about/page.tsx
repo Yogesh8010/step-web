@@ -157,6 +157,37 @@ export default function About() {
             </div>
           </div>
 
+          {/* Core Industry Focus */}
+          <div className="mb-20">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-text-heading font-heading mb-2">Specialized Industry Focus</h2>
+              <p className="text-sm text-text-body max-w-lg mx-auto">Deep recruiter networks and domain expertise across India's fastest-growing industrial and digital sectors.</p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { title: "EMS & Electronics", desc: "PCB design, SMT operators, hardware engineering, cleanroom technicians, and quality testing." },
+                { title: "Manufacturing & Heavy Engineering", desc: "Plant managers, production supervisors, mechanical & electrical engineers, and safety officers." },
+                { title: "EdTech & Education", desc: "Academic counselors, BDA sales leaders, curriculum architects, and instructional designers." },
+                { title: "Information Technology", desc: "Full-stack engineers, cloud architects, DevOps specialists, and tech leadership." },
+                { title: "BPO & Customer Operations", desc: "Customer success executives, volume support teams, and process managers." },
+                { title: "Corporate Sales & BFSI", desc: "B2B business development managers, financial analysts, and corporate account leads." },
+              ].map((ind, idx) => (
+                <motion.div
+                  key={ind.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: idx * 0.08 }}
+                  className="p-6 bg-bg-card border border-border-main rounded-xl hover:border-brand-accent/40 transition-all"
+                >
+                  <h3 className="text-base font-bold text-text-heading font-heading mb-2 text-brand-accent">{ind.title}</h3>
+                  <p className="text-xs text-text-body leading-relaxed">{ind.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
           {/* Impact Stats */}
           <div className="p-10 bg-bg-card border border-border-main rounded-2xl text-center mb-20">
             <h2 className="text-xs uppercase tracking-widest text-brand-accent font-bold mb-6">Our Verified Track Record</h2>

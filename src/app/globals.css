@@ -45,6 +45,15 @@
   --brand-accent-hover: #60A5FA;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   background-color: var(--bg-main);
   color: var(--text-body);
