@@ -6,7 +6,7 @@ import {
   Heart, Share2, CheckCircle, ArrowRight, ShieldCheck, Sparkles, X
 } from "lucide-react";
 import Link from "next/link";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Job } from "@/lib/getJobs";
 
 export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
@@ -20,39 +20,66 @@ export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
   // Filter chips
   const filterChips = ["All", "Full-Time", "Remote", "Hybrid", "Engineering", "Sales"];
 
-  // Filtered jobs calculation
+  // Filtered jobs calculation (defensive against undefined/null values)
   const filteredJobs = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    const loc = locationQuery.trim().toLowerCase();
+
     return initialJobs.filter((job) => {
-      const matchesSearch = 
-        job.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-        job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        job.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      const matchesSearch = !q || 
+        (job.title && job.title.toLowerCase().includes(q)) || 
+        (job.company && job.company.toLowerCase().includes(q)) ||
+        (job.salary && job.salary.toLowerCase().includes(q)) ||
+        (job.type && job.type.toLowerCase().includes(q)) ||
+        (Array.isArray(job.tags) && job.tags.some(tag => tag && tag.toLowerCase().includes(q)));
         
-      const matchesLocation = job.location.toLowerCase().includes(locationQuery.toLowerCase());
+      const matchesLocation = !loc || 
+        (job.location && job.location.toLowerCase().includes(loc));
 
       let matchesChip = true;
       if (activeChip === "Remote") {
-        matchesChip = job.location.toLowerCase().includes("remote");
+        matchesChip = (job.location || "").toLowerCase().includes("remote");
       } else if (activeChip === "Hybrid") {
-        matchesChip = job.location.toLowerCase().includes("hybrid");
+        matchesChip = (job.location || "").toLowerCase().includes("hybrid");
       } else if (activeChip === "Full-Time") {
-        matchesChip = job.type.toLowerCase().includes("full");
+        matchesChip = (job.type || "").toLowerCase().includes("full");
       } else if (activeChip === "Engineering") {
-        matchesChip = job.tags.some(t => ["react", "node", "tech", "developer", "engineer", "software"].includes(t.toLowerCase())) ||
-          job.title.toLowerCase().includes("developer") || job.title.toLowerCase().includes("engineer");
+        matchesChip = 
+          (Array.isArray(job.tags) && job.tags.some(t => ["react", "node", "tech", "developer", "engineer", "software"].includes((t || "").toLowerCase()))) ||
+          (job.title || "").toLowerCase().includes("developer") || 
+          (job.title || "").toLowerCase().includes("engineer");
       } else if (activeChip === "Sales") {
-        matchesChip = job.tags.some(t => ["sales", "b2b", "marketing", "business"].includes(t.toLowerCase())) ||
-          job.title.toLowerCase().includes("sales");
+        matchesChip = 
+          (Array.isArray(job.tags) && job.tags.some(t => ["sales", "b2b", "marketing", "business"].includes((t || "").toLowerCase()))) ||
+          (job.title || "").toLowerCase().includes("sales");
       }
 
       return matchesSearch && matchesLocation && matchesChip;
     });
   }, [initialJobs, searchQuery, locationQuery, activeChip]);
 
+  // Keep selectedJobId synchronized with filtered results
+  useEffect(() => {
+    if (filteredJobs.length > 0 && !filteredJobs.some(j => j.id === selectedJobId)) {
+      setSelectedJobId(filteredJobs[0].id);
+    }
+  }, [filteredJobs, selectedJobId]);
+
   // Selected job instance
   const selectedJob = useMemo(() => {
     return filteredJobs.find((j) => j.id === selectedJobId) || filteredJobs[0] || initialJobs[0];
   }, [filteredJobs, selectedJobId, initialJobs]);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (typeof document !== "undefined" && document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+    const resultsEl = document.getElementById("job-results-container");
+    if (resultsEl) {
+      resultsEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   const toggleSaveJob = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -90,36 +117,58 @@ export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
 
       {/* Global Search & Location Controls */}
       <div className="bg-bg-card p-4 rounded-xl border border-border-main mb-6 shadow-sm">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+        <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 md:grid-cols-12 gap-3">
           <div className="md:col-span-6 relative">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-body/60" size={18} />
             <input 
               type="text" 
               placeholder="Search by job title, skill, or company name..." 
-              className="w-full pl-10 pr-4 py-2.5 rounded-lg glass-input text-sm"
+              className="w-full pl-10 pr-9 py-2.5 rounded-lg glass-input text-sm"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-text-body/60 hover:text-text-heading p-1 transition-colors"
+                title="Clear search"
+                aria-label="Clear search"
+              >
+                <X size={15} />
+              </button>
+            )}
           </div>
           <div className="md:col-span-4 relative">
             <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-body/60" size={18} />
             <input 
               type="text" 
               placeholder="Location (e.g. Bangalore, Remote, Mumbai)" 
-              className="w-full pl-10 pr-4 py-2.5 rounded-lg glass-input text-sm"
+              className="w-full pl-10 pr-9 py-2.5 rounded-lg glass-input text-sm"
               value={locationQuery}
               onChange={(e) => setLocationQuery(e.target.value)}
             />
+            {locationQuery && (
+              <button
+                type="button"
+                onClick={() => setLocationQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-text-body/60 hover:text-text-heading p-1 transition-colors"
+                title="Clear location"
+                aria-label="Clear location"
+              >
+                <X size={15} />
+              </button>
+            )}
           </div>
           <div className="md:col-span-2">
             <button 
-              onClick={() => {}}
-              className="w-full h-full py-2.5 bg-brand-accent hover:bg-brand-accent-hover text-white text-sm font-semibold rounded-lg transition-colors shadow-sm flex items-center justify-center gap-2"
+              type="submit"
+              className="w-full h-full py-2.5 bg-brand-accent hover:bg-brand-accent-hover text-white text-sm font-semibold rounded-lg transition-colors shadow-sm flex items-center justify-center gap-2 cursor-pointer active:scale-98"
             >
-              Search
+              <Search size={16} /> Search
             </button>
           </div>
-        </div>
+        </form>
 
         {/* Filter Chips */}
         <div className="flex items-center gap-2 mt-4 pt-3 border-t border-border-main overflow-x-auto pb-1 scrollbar-none">
@@ -153,7 +202,7 @@ export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
       </div>
 
       {/* Main Split Layout: Left Card List, Right Details Pane */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div id="job-results-container" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start scroll-mt-28">
         {/* Left Column: Job Cards List (5 cols on lg) */}
         <div className="lg:col-span-5 space-y-3">
           <div className="flex items-center justify-between text-xs text-text-body font-semibold px-1 mb-2">
@@ -238,14 +287,14 @@ export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-border-main/50">
-                    {job.tags.slice(0, 3).map((tag, idx) => (
+                    {(job.tags || []).slice(0, 3).map((tag, idx) => (
                       <span key={idx} className="px-2 py-0.5 rounded bg-bg-main border border-border-main text-[11px] text-text-body font-medium">
                         {tag}
                       </span>
                     ))}
-                    {job.tags.length > 3 && (
+                    {(job.tags || []).length > 3 && (
                       <span className="text-[11px] text-text-body/70 font-medium">
-                        +{job.tags.length - 3} more
+                        +{(job.tags || []).length - 3} more
                       </span>
                     )}
                   </div>
@@ -328,7 +377,7 @@ export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading mb-2">Required Skills</h4>
                 <div className="flex flex-wrap gap-2">
-                  {selectedJob.tags.map((tag, idx) => (
+                  {(selectedJob.tags || []).map((tag, idx) => (
                     <span key={idx} className="px-3 py-1 rounded bg-bg-main border border-border-main text-xs font-medium text-text-heading">
                       {tag}
                     </span>
@@ -426,7 +475,7 @@ export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
               </p>
               <h4 className="font-bold text-text-heading uppercase pt-2">Skills</h4>
               <div className="flex flex-wrap gap-1.5">
-                {selectedJob.tags.map((tag, idx) => (
+                {(selectedJob.tags || []).map((tag, idx) => (
                   <span key={idx} className="px-2.5 py-1 bg-bg-card border border-border-main rounded text-xs">
                     {tag}
                   </span>

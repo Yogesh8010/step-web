@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Mail, MapPin, Phone, Star, ShieldCheck } from "lucide-react";
 import Image from "next/image";
 
@@ -25,18 +26,32 @@ function InstagramIcon({ size = 16, className = "" }: { size?: number; className
 }
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  const handleHomeClick = (e: React.MouseEvent) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <footer className="border-t border-border-main bg-bg-card pt-16 pb-28 md:pb-8 px-6 mt-20 relative z-10 transition-colors">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
         {/* Brand & Newsletter */}
         <div className="lg:col-span-2 space-y-6">
-          <Link href="/" className="flex items-center group">
+          <Link 
+            href="/" 
+            onClick={handleHomeClick}
+            className="flex items-center group cursor-pointer"
+            title="Step-Up Career Home"
+          >
             <Image 
               src="/logo.png" 
               alt="Step-Up Career Logo" 
-              width={160} 
-              height={50} 
-              className="group-hover:scale-102 transition-transform dark:brightness-110"
+              width={180} 
+              height={60} 
+              className="w-[150px] sm:w-[180px] h-[50px] sm:h-[60px] object-contain group-hover:scale-105 transition-transform dark:brightness-110"
             />
           </Link>
           <p className="text-text-body text-sm leading-relaxed max-w-sm">
@@ -67,7 +82,7 @@ export default function Footer() {
         <div>
           <h4 className="text-text-heading font-bold text-sm mb-6 tracking-wider uppercase">Quick Links</h4>
           <ul className="space-y-3 text-sm text-text-body">
-            <li><Link href="/" className="hover:text-brand-accent transition-colors">Home</Link></li>
+            <li><Link href="/" onClick={handleHomeClick} className="hover:text-brand-accent transition-colors">Home</Link></li>
             <li><Link href="/about" className="hover:text-brand-accent transition-colors">About Us</Link></li>
             <li><Link href="/jobs" className="hover:text-brand-accent transition-colors">Find Jobs</Link></li>
             <li><Link href="/services" className="hover:text-brand-accent transition-colors">Services</Link></li>

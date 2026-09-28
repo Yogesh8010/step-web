@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, Sun, Moon, Search } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -31,6 +32,15 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState("light");
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
+
+  const handleHomeClick = (e?: React.MouseEvent) => {
+    setIsMobileMenuOpen(false);
+    if (pathname === "/") {
+      if (e) e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -82,13 +92,18 @@ export default function Header() {
       <header className="fixed top-0 left-0 right-0 z-40 glass border-b border-border-main">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center group shrink-0">
+          <Link 
+            href="/" 
+            onClick={handleHomeClick}
+            className="flex items-center group shrink-0 cursor-pointer"
+            title="Step-Up Career Home"
+          >
             <Image 
               src="/logo.png" 
               alt="Step-Up Career Logo" 
-              width={160} 
-              height={50} 
-              className="group-hover:scale-102 transition-transform dark:brightness-110 w-auto h-9 sm:h-11"
+              width={180} 
+              height={60} 
+              className="w-[150px] sm:w-[180px] h-[50px] sm:h-[60px] object-contain group-hover:scale-105 transition-transform dark:brightness-110"
               priority
             />
           </Link>
@@ -99,6 +114,7 @@ export default function Header() {
               <Link 
                 key={link.name} 
                 href={link.href} 
+                onClick={link.href === "/" ? handleHomeClick : undefined}
                 className="text-text-body hover:text-brand-accent transition-colors"
               >
                 {link.name}
@@ -160,7 +176,16 @@ export default function Header() {
           </div>
 
           {/* Mobile Controls & Hamburger Button (Optimized for iOS & Touch) */}
-          <div className="flex lg:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-1 sm:gap-2">
+            <Link
+              href="/jobs"
+              className="text-text-body hover:text-brand-accent p-2.5 transition-colors rounded-full hover:bg-bg-card active:scale-95 touch-manipulation"
+              title="Search Jobs"
+              aria-label="Search Jobs"
+            >
+              <Search size={20} />
+            </Link>
+
             <button 
               onClick={toggleTheme} 
               className="text-text-body hover:text-brand-accent p-2.5 transition-colors rounded-full hover:bg-bg-card active:scale-95 touch-manipulation"
@@ -208,13 +233,20 @@ export default function Header() {
                 <div className="space-y-6">
                   {/* Drawer Header */}
                   <div className="flex items-center justify-between pb-5 border-b border-border-main">
-                    <Image 
-                      src="/logo.png" 
-                      alt="Step-Up Career Logo" 
-                      width={130} 
-                      height={40} 
-                      className="dark:brightness-110 w-auto h-8"
-                    />
+                    <Link 
+                      href="/" 
+                      onClick={handleHomeClick}
+                      className="flex items-center group cursor-pointer"
+                      title="Step-Up Career Home"
+                    >
+                      <Image 
+                        src="/logo.png" 
+                        alt="Step-Up Career Logo" 
+                        width={140} 
+                        height={46} 
+                        className="w-[130px] h-[44px] object-contain dark:brightness-110"
+                      />
+                    </Link>
                     <button 
                       type="button"
                       onClick={() => setIsMobileMenuOpen(false)}
@@ -231,7 +263,13 @@ export default function Header() {
                       <Link 
                         key={link.name} 
                         href={link.href} 
-                        onClick={() => setIsMobileMenuOpen(false)} 
+                        onClick={(e) => {
+                          if (link.href === "/") {
+                            handleHomeClick(e);
+                          } else {
+                            setIsMobileMenuOpen(false);
+                          }
+                        }} 
                         className="py-2 px-3 rounded-lg text-text-body hover:text-brand-accent hover:bg-bg-card transition-colors active:bg-bg-card touch-manipulation"
                       >
                         {link.name}
