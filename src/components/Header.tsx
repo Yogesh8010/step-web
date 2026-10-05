@@ -98,12 +98,22 @@ export default function Header() {
             className="flex items-center group shrink-0 cursor-pointer"
             title="Step-Up Career Home"
           >
+            {/* Light mode: transparent logo (grey CAREER text visible against light bg) */}
             <Image 
               src="/logo.png" 
               alt="Step-Up Career Logo" 
-              width={180} 
-              height={60} 
-              className="w-[150px] sm:w-[180px] h-[50px] sm:h-[60px] object-contain group-hover:scale-105 transition-transform dark:brightness-110"
+              width={800} 
+              height={389} 
+              className="w-[170px] sm:w-[210px] h-auto object-contain group-hover:scale-105 transition-transform block dark:hidden"
+              priority
+            />
+            {/* Dark mode: full dark-background logo (white CAREER text pops against dark bg) */}
+            <Image 
+              src="/logo-dark.png" 
+              alt="Step-Up Career Logo" 
+              width={800} 
+              height={389} 
+              className="w-[170px] sm:w-[210px] h-auto object-contain group-hover:scale-105 transition-transform hidden dark:block rounded-md"
               priority
             />
           </Link>
@@ -242,9 +252,16 @@ export default function Header() {
                       <Image 
                         src="/logo.png" 
                         alt="Step-Up Career Logo" 
-                        width={140} 
-                        height={46} 
-                        className="w-[130px] h-[44px] object-contain dark:brightness-110"
+                        width={800} 
+                        height={389} 
+                        className="w-[140px] h-auto object-contain block dark:hidden"
+                      />
+                      <Image 
+                        src="/logo-dark.png" 
+                        alt="Step-Up Career Logo" 
+                        width={800} 
+                        height={389} 
+                        className="w-[140px] h-auto object-contain hidden dark:block rounded-md"
                       />
                     </Link>
                     <button 

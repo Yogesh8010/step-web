@@ -49,9 +49,16 @@ export default function Footer() {
             <Image 
               src="/logo.png" 
               alt="Step-Up Career Logo" 
-              width={180} 
-              height={60} 
-              className="w-[150px] sm:w-[180px] h-[50px] sm:h-[60px] object-contain group-hover:scale-105 transition-transform dark:brightness-110"
+              width={800} 
+              height={389} 
+              className="w-[170px] sm:w-[200px] h-auto object-contain group-hover:scale-105 transition-transform block dark:hidden"
+            />
+            <Image 
+              src="/logo-dark.png" 
+              alt="Step-Up Career Logo" 
+              width={800} 
+              height={389} 
+              className="w-[170px] sm:w-[200px] h-auto object-contain group-hover:scale-105 transition-transform hidden dark:block rounded-md"
             />
           </Link>
           <p className="text-text-body text-sm leading-relaxed max-w-sm">
