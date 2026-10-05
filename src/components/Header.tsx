@@ -98,22 +98,12 @@ export default function Header() {
             className="flex items-center group shrink-0 cursor-pointer"
             title="Step-Up Career Home"
           >
-            {/* Light mode: transparent logo (grey CAREER text visible against light bg) */}
             <Image 
               src="/logo.png" 
               alt="Step-Up Career Logo" 
-              width={800} 
-              height={389} 
-              className="w-[170px] sm:w-[210px] h-auto object-contain group-hover:scale-105 transition-transform block dark:hidden"
-              priority
-            />
-            {/* Dark mode: full dark-background logo (white CAREER text pops against dark bg) */}
-            <Image 
-              src="/logo-dark.png" 
-              alt="Step-Up Career Logo" 
-              width={800} 
-              height={389} 
-              className="w-[170px] sm:w-[210px] h-auto object-contain group-hover:scale-105 transition-transform hidden dark:block rounded-md"
+              width={762} 
+              height={372} 
+              className="h-12 sm:h-14 md:h-16 w-auto object-contain group-hover:scale-105 transition-transform dark:brightness-110"
               priority
             />
           </Link>
@@ -252,16 +242,9 @@ export default function Header() {
                       <Image 
                         src="/logo.png" 
                         alt="Step-Up Career Logo" 
-                        width={800} 
-                        height={389} 
-                        className="w-[140px] h-auto object-contain block dark:hidden"
-                      />
-                      <Image 
-                        src="/logo-dark.png" 
-                        alt="Step-Up Career Logo" 
-                        width={800} 
-                        height={389} 
-                        className="w-[140px] h-auto object-contain hidden dark:block rounded-md"
+                        width={762} 
+                        height={372} 
+                        className="h-12 w-auto object-contain dark:brightness-110"
                       />
                     </Link>
                     <button 
