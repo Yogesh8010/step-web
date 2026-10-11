@@ -11,14 +11,18 @@ export const metadata: Metadata = {
   keywords: ["jobs in India", "IT recruitment", "hiring", "careers", "Step-Up Career", "sales jobs", "developer jobs"],
 };
 
-export default async function JobsPage() {
+export default async function JobsPage(props: {
+  searchParams?: Promise<{ id?: string }>;
+}) {
   const jobs = await getJobs();
+  const searchParams = props.searchParams ? await props.searchParams : undefined;
+  const initialJobId = searchParams?.id;
 
   return (
     <>
       <Header />
       <main className="pt-28 pb-24 px-4 sm:px-6 bg-bg-main min-h-screen transition-colors">
-        <JobList initialJobs={jobs} />
+        <JobList initialJobs={jobs} initialJobId={initialJobId} />
       </main>
     </>
   );

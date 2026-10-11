@@ -273,9 +273,13 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
                         </div>
                       </div>
 
-                      <h3 className="text-xl font-bold text-text-heading mb-1 group-hover:text-brand-accent transition-colors font-heading line-clamp-1">
+                      <Link 
+                        href={`/jobs?id=${job.id}`}
+                        className="text-xl font-bold text-text-heading mb-1 hover:text-brand-accent transition-colors font-heading line-clamp-1 block"
+                        title={`View job description for ${job.title}`}
+                      >
                         {job.title}
-                      </h3>
+                      </Link>
                       <p className="text-sm font-semibold text-text-body mb-4">{job.company}</p>
                       
                       <div className="grid grid-cols-2 gap-y-3 gap-x-2 text-xs text-text-body mb-6">
@@ -302,12 +306,20 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
                           </span>
                         ))}
                       </div>
-                      <Link 
-                        href={`/apply?role=${encodeURIComponent(job.title)}`}
-                        className="w-full py-2.5 bg-brand-accent hover:bg-brand-accent-hover text-white text-center font-bold rounded-lg block text-sm transition-colors shadow-sm"
-                      >
-                        Apply Now
-                      </Link>
+                      <div className="grid grid-cols-2 gap-2">
+                        <Link 
+                          href={`/jobs?id=${job.id}`}
+                          className="w-full py-2.5 bg-bg-main hover:bg-border-main text-text-heading border border-border-main text-center font-semibold rounded-lg block text-xs transition-colors flex items-center justify-center gap-1"
+                        >
+                          View JD <ArrowRight size={13} />
+                        </Link>
+                        <Link 
+                          href={`/apply?role=${encodeURIComponent(job.title)}`}
+                          className="w-full py-2.5 bg-brand-accent hover:bg-brand-accent-hover text-white text-center font-bold rounded-lg block text-xs transition-colors shadow-sm flex items-center justify-center"
+                        >
+                          Apply Now
+                        </Link>
+                      </div>
                     </div>
                   </motion.div>
                 );

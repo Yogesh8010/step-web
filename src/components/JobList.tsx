@@ -3,19 +3,44 @@
 import { motion } from "framer-motion";
 import { 
   Search, MapPin, Building2, Clock, Briefcase, IndianRupee, 
-  Heart, Share2, CheckCircle, ArrowRight, ShieldCheck, Sparkles, X
+  Heart, Share2, CheckCircle, ArrowRight, ArrowLeft, ShieldCheck, Sparkles, X
 } from "lucide-react";
 import Link from "next/link";
 import { useState, useMemo, useEffect } from "react";
 import { Job } from "@/lib/getJobs";
 
-export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
+export default function JobList({ 
+  initialJobs,
+  initialJobId,
+}: { 
+  initialJobs: Job[];
+  initialJobId?: string;
+}) {
   const [searchQuery, setSearchQuery] = useState("");
   const [locationQuery, setLocationQuery] = useState("");
   const [activeChip, setActiveChip] = useState("All");
-  const [selectedJobId, setSelectedJobId] = useState<string>(initialJobs[0]?.id || "");
+
+  const startingJobId = useMemo(() => {
+    if (initialJobId && initialJobs.some(j => j.id === initialJobId)) {
+      return initialJobId;
+    }
+    return initialJobs[0]?.id || "";
+  }, [initialJobId, initialJobs]);
+
+  const [selectedJobId, setSelectedJobId] = useState<string>(startingJobId);
   const [savedJobs, setSavedJobs] = useState<Record<string, boolean>>({});
-  const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
+  const [mobileDetailOpen, setMobileDetailOpen] = useState(Boolean(initialJobId));
+
+  // Lock background scroll on mobile when detail modal is open
+  useEffect(() => {
+    if (mobileDetailOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [mobileDetailOpen]);
 
   // Filter chips
   const filterChips = ["All", "Full-Time", "Remote", "Hybrid", "Engineering", "Sales"];
@@ -233,13 +258,13 @@ export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
                       : "border-border-main hover:border-brand-accent/40 hover:shadow-sm"
                   }`}
                 >
-                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <div className="flex items-start justify-between gap-3 mb-2">
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-lg bg-brand-accent/10 text-brand-accent flex items-center justify-center font-bold text-base shrink-0 border border-brand-accent/20">
                         {job.company.charAt(0)}
                       </div>
                       <div>
-                        <h3 className="font-bold text-text-heading text-base leading-snug font-heading">
+                        <h3 className="font-bold text-text-heading text-base leading-snug font-heading group-hover:text-brand-accent transition-colors">
                           {job.title}
                         </h3>
                         <p className="text-xs text-text-body font-medium flex items-center gap-1.5 mt-0.5">
@@ -298,6 +323,17 @@ export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
                       </span>
                     )}
                   </div>
+
+                  {/* Clear CTA on card to open full JD */}
+                  <div className="mt-3 pt-2.5 border-t border-border-main/40 flex items-center justify-between text-xs">
+                    <span className="text-brand-accent font-bold flex items-center gap-1 hover:underline">
+                      <span>View Full Job Description</span>
+                      <ArrowRight size={13} />
+                    </span>
+                    <span className="text-[11px] text-text-body/60 font-medium lg:hidden">
+                      Tap to open
+                    </span>
+                  </div>
                 </motion.div>
               );
             })
@@ -305,9 +341,9 @@ export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
         </div>
 
         {/* Right Column: Sticky Job Detail Panel (7 cols on lg) */}
-        <div className="hidden lg:block lg:col-span-7 sticky top-28">
+        <div className="hidden lg:block lg:col-span-7 sticky top-24">
           {selectedJob ? (
-            <div className="bg-bg-card border border-border-main rounded-xl p-8 shadow-sm space-y-6">
+            <div className="bg-bg-card border border-border-main rounded-xl p-6 lg:p-8 shadow-sm space-y-6 max-h-[calc(100vh-7.5rem)] overflow-y-auto overscroll-contain">
               {/* Header inside details */}
               <div className="flex items-start justify-between gap-4 pb-6 border-b border-border-main">
                 <div>
@@ -430,58 +466,155 @@ export default function JobList({ initialJobs }: { initialJobs: Job[] }) {
         </div>
       </div>
 
-      {/* Mobile Detail Drawer/Modal */}
+      {/* Mobile Detail Drawer/Modal with Full JD */}
       {mobileDetailOpen && selectedJob && (
-        <div className="fixed inset-0 z-50 lg:hidden flex flex-col bg-bg-main p-6 overflow-y-auto">
-          <div className="flex items-center justify-between pb-4 border-b border-border-main mb-6">
-            <h3 className="font-bold text-text-heading text-lg font-heading truncate">
-              {selectedJob.title}
-            </h3>
+        <div className="fixed inset-0 z-50 lg:hidden flex flex-col bg-bg-main animate-in fade-in duration-200">
+          {/* Top Sticky Bar */}
+          <div className="sticky top-0 z-20 bg-bg-card/95 backdrop-blur border-b border-border-main px-4 py-3 flex items-center justify-between">
             <button 
               onClick={() => setMobileDetailOpen(false)}
-              className="p-2 text-text-body hover:text-text-heading"
+              className="flex items-center gap-1.5 text-xs font-semibold text-text-body hover:text-text-heading active:scale-95 transition-all p-1"
             >
-              <X size={22} />
+              <ArrowLeft size={18} />
+              <span>Back to Jobs</span>
             </button>
+
+            <div className="flex items-center gap-1">
+              <button 
+                onClick={(e) => toggleSaveJob(selectedJob.id, e)}
+                className={`p-2 rounded-lg border border-border-main ${savedJobs[selectedJob.id] ? "text-red-500 bg-red-500/10" : "text-text-body"}`}
+                title="Save Job"
+              >
+                <Heart size={16} fill={savedJobs[selectedJob.id] ? "currentColor" : "none"} />
+              </button>
+              <button 
+                onClick={(e) => shareJob(selectedJob, e)}
+                className="p-2 rounded-lg border border-border-main text-text-body hover:text-text-heading"
+                title="Share Job"
+              >
+                <Share2 size={16} />
+              </button>
+              <button 
+                onClick={() => setMobileDetailOpen(false)}
+                className="p-2 text-text-body hover:text-text-heading rounded-lg hover:bg-bg-main"
+                aria-label="Close"
+              >
+                <X size={20} />
+              </button>
+            </div>
           </div>
 
-          <div className="space-y-6">
+          {/* Scrollable Complete JD Body */}
+          <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6 pb-32 overscroll-contain">
+            {/* Header inside details */}
             <div>
-              <p className="text-sm font-bold text-brand-accent">{selectedJob.company}</p>
-              <p className="text-xs text-text-body">{selectedJob.location} • {selectedJob.salary}</p>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Link
-                href={`/apply?role=${encodeURIComponent(selectedJob.title)}`}
-                className="w-full py-3 bg-brand-accent text-white font-bold text-center rounded-lg text-sm"
-              >
-                Quick Apply Now
-              </Link>
-              <a
-                href={`https://wa.me/917697334430?text=${encodeURIComponent(`Hi Step-Up Career, I am interested in applying for: ${selectedJob.title} at ${selectedJob.company}.`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3 bg-bg-card border border-border-main text-text-heading font-semibold text-center rounded-lg text-sm"
-              >
-                Apply via WhatsApp
-              </a>
-            </div>
-
-            <div className="space-y-3 text-xs text-text-body leading-relaxed">
-              <h4 className="font-bold text-text-heading uppercase">About The Role</h4>
-              <p>
-                Step-Up Career is recruiting for {selectedJob.company}. Fast-tracked application and verified screening process.
+              <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-accent mb-2">
+                <ShieldCheck size={14} /> Verified Partner Employer
+              </div>
+              <h2 className="text-2xl font-bold text-text-heading font-heading leading-tight">
+                {selectedJob.title}
+              </h2>
+              <p className="text-sm font-semibold text-text-body mt-1.5">
+                {selectedJob.company} • {selectedJob.location}
               </p>
-              <h4 className="font-bold text-text-heading uppercase pt-2">Skills</h4>
+              <div className="flex items-center justify-between mt-3 pt-3 border-t border-border-main/60">
+                <span className="text-xl font-extrabold text-brand-accent font-heading">
+                  {selectedJob.salary}
+                </span>
+                <span className="text-xs text-text-body/70 flex items-center gap-1">
+                  <Clock size={13} /> Posted {selectedJob.posted}
+                </span>
+              </div>
+            </div>
+
+            {/* Job Highlights Grid */}
+            <div className="grid grid-cols-2 gap-2.5 p-3.5 bg-bg-card rounded-xl border border-border-main text-center">
+              <div className="p-2.5 rounded-lg bg-bg-main border border-border-main/50">
+                <span className="text-[10px] uppercase tracking-wider text-text-body block">Role Type</span>
+                <span className="text-xs font-bold text-text-heading">{selectedJob.type}</span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-bg-main border border-border-main/50">
+                <span className="text-[10px] uppercase tracking-wider text-text-body block">Location</span>
+                <span className="text-xs font-bold text-text-heading truncate block">{selectedJob.location.split(",")[0]}</span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-bg-main border border-border-main/50">
+                <span className="text-[10px] uppercase tracking-wider text-text-body block">Experience</span>
+                <span className="text-xs font-bold text-text-heading">1 - 5 Years</span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-bg-main border border-border-main/50">
+                <span className="text-[10px] uppercase tracking-wider text-text-body block">Status</span>
+                <span className="text-xs font-bold text-green-500">Actively Hiring</span>
+              </div>
+            </div>
+
+            {/* Required Skills */}
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading mb-2.5">
+                Required Skills
+              </h4>
               <div className="flex flex-wrap gap-1.5">
                 {(selectedJob.tags || []).map((tag, idx) => (
-                  <span key={idx} className="px-2.5 py-1 bg-bg-card border border-border-main rounded text-xs">
+                  <span key={idx} className="px-3 py-1 rounded-md bg-bg-card border border-border-main text-xs font-medium text-text-heading">
                     {tag}
                   </span>
                 ))}
               </div>
             </div>
+
+            {/* Job Overview / Description */}
+            <div className="space-y-3.5 text-sm text-text-body leading-relaxed border-t border-border-main pt-5">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading">About The Position</h4>
+              <p className="text-xs sm:text-sm leading-relaxed">
+                Step-Up Career is actively partnering with {selectedJob.company} to recruit qualified candidates for the {selectedJob.title} opening. 
+                Candidates will work closely with cross-functional teams to deliver high-impact results in a fast-paced environment.
+              </p>
+
+              <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading pt-2">Key Responsibilities</h4>
+              <ul className="space-y-2 list-disc list-inside text-xs text-text-body">
+                <li>Deliver high-performance execution aligned with team targets and sprint deliverables.</li>
+                <li>Collaborate with stakeholders and managers to optimize daily operational workflows.</li>
+                <li>Uphold industry compliance, code quality, and professional communication standards.</li>
+                <li>Actively identify process bottlenecks and implement scalable solutions.</li>
+              </ul>
+
+              <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading pt-2">Candidate Benefits</h4>
+              <ul className="space-y-2 list-disc list-inside text-xs text-text-body">
+                <li>Competitive industry compensation: {selectedJob.salary}.</li>
+                <li>Fast-track interview and feedback cycles through Step-Up Career.</li>
+                <li>Performance incentives and rapid professional career progression.</li>
+              </ul>
+            </div>
+
+            {/* Trust Footer */}
+            <div className="pt-4 border-t border-border-main flex items-center justify-between text-xs text-text-body">
+              <span className="flex items-center gap-1.5 text-green-600 dark:text-green-400 font-semibold">
+                <CheckCircle size={14} /> Zero Candidate Fees Guarantee
+              </span>
+              <a 
+                href="mailto:jobs@stepup-career.in?subject=Report Job Opening"
+                className="hover:text-red-500 transition-colors text-[11px]"
+              >
+                Report job
+              </a>
+            </div>
+          </div>
+
+          {/* Fixed Sticky Bottom Action Bar for 1-Tap Application */}
+          <div className="fixed bottom-0 left-0 right-0 z-30 bg-bg-card/95 backdrop-blur border-t border-border-main p-4 flex items-center gap-2.5 shadow-lg">
+            <Link
+              href={`/apply?role=${encodeURIComponent(selectedJob.title)}`}
+              className="flex-1 py-3 px-4 bg-brand-accent hover:bg-brand-accent-hover active:scale-98 text-white font-bold text-center rounded-lg text-sm transition-all shadow-sm flex items-center justify-center gap-2"
+            >
+              Quick Apply Now <ArrowRight size={16} />
+            </Link>
+            <a
+              href={`https://wa.me/917697334430?text=${encodeURIComponent(`Hi Step-Up Career, I am interested in applying for: ${selectedJob.title} at ${selectedJob.company}.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="py-3 px-4 bg-bg-main border border-border-main hover:bg-border-main active:scale-98 text-text-heading font-semibold text-center rounded-lg text-xs sm:text-sm transition-all whitespace-nowrap"
+            >
+              WhatsApp Apply
+            </a>
           </div>
         </div>
       )}
