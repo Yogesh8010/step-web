@@ -425,23 +425,24 @@ export default function JobList({
               <div className="space-y-3 text-sm text-text-body leading-relaxed border-t border-border-main pt-6">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading">About The Position</h4>
                 <p>
-                  Step-Up Career is actively partnering with {selectedJob.company} to recruit qualified candidates for the {selectedJob.title} opening. 
-                  Candidates will work closely with cross-functional teams to deliver high-impact results in a fast-paced environment.
+                  Step-Up Career is exclusively recruiting for the <strong className="text-text-heading">{selectedJob.title}</strong> role on behalf of a verified employer partner. 
+                  We manage the complete hiring process — from application screening and shortlisting to interview scheduling and offer coordination — so you get faster responses with zero hassle.
                 </p>
 
                 <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading pt-2">Key Responsibilities</h4>
                 <ul className="space-y-1.5 list-disc list-inside text-xs text-text-body">
                   <li>Deliver high-performance execution aligned with team targets and sprint deliverables.</li>
                   <li>Collaborate with stakeholders and managers to optimize daily operational workflows.</li>
-                  <li>Uphold industry compliance, code quality, and professional communication standards.</li>
-                  <li>Actively identify process bottlenecks and implement scalable solutions.</li>
+                  <li>Uphold industry compliance, quality standards, and professional communication practices.</li>
+                  <li>Proactively identify process gaps and implement effective, scalable solutions.</li>
                 </ul>
 
-                <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading pt-2">Candidate Benefits</h4>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading pt-2">Why Apply Through Step-Up Career</h4>
                 <ul className="space-y-1.5 list-disc list-inside text-xs text-text-body">
                   <li>Competitive industry compensation: {selectedJob.salary}.</li>
-                  <li>Fast-track interview and feedback cycles through Step-Up Career.</li>
-                  <li>Performance incentives and rapid professional career progression.</li>
+                  <li>Direct shortlisting to the employer — no middlemen, no unnecessary delays.</li>
+                  <li>100% free for candidates. We are paid by employers, never by you.</li>
+                  <li>Dedicated placement support from application to day-one onboarding.</li>
                 </ul>
               </div>
 
@@ -565,23 +566,24 @@ export default function JobList({
             <div className="space-y-3.5 text-sm text-text-body leading-relaxed border-t border-border-main pt-5">
               <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading">About The Position</h4>
               <p className="text-xs sm:text-sm leading-relaxed">
-                Step-Up Career is actively partnering with {selectedJob.company} to recruit qualified candidates for the {selectedJob.title} opening. 
-                Candidates will work closely with cross-functional teams to deliver high-impact results in a fast-paced environment.
+                Step-Up Career is exclusively recruiting for the <strong className="text-text-heading">{selectedJob.title}</strong> role on behalf of a verified employer partner.
+                We manage the complete hiring process — from application screening and shortlisting to interview scheduling and offer coordination — so you get faster responses with zero hassle.
               </p>
 
               <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading pt-2">Key Responsibilities</h4>
               <ul className="space-y-2 list-disc list-inside text-xs text-text-body">
                 <li>Deliver high-performance execution aligned with team targets and sprint deliverables.</li>
                 <li>Collaborate with stakeholders and managers to optimize daily operational workflows.</li>
-                <li>Uphold industry compliance, code quality, and professional communication standards.</li>
-                <li>Actively identify process bottlenecks and implement scalable solutions.</li>
+                <li>Uphold industry compliance, quality standards, and professional communication practices.</li>
+                <li>Proactively identify process gaps and implement effective, scalable solutions.</li>
               </ul>
 
-              <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading pt-2">Candidate Benefits</h4>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading pt-2">Why Apply Through Step-Up Career</h4>
               <ul className="space-y-2 list-disc list-inside text-xs text-text-body">
                 <li>Competitive industry compensation: {selectedJob.salary}.</li>
-                <li>Fast-track interview and feedback cycles through Step-Up Career.</li>
-                <li>Performance incentives and rapid professional career progression.</li>
+                <li>Direct shortlisting to the employer — no middlemen, no unnecessary delays.</li>
+                <li>100% free for candidates. We are paid by employers, never by you.</li>
+                <li>Dedicated placement support from application to day-one onboarding.</li>
               </ul>
             </div>
 
