@@ -39,18 +39,15 @@ function ApplyForm() {
             "Content-Type": "text/plain",
           },
           body: JSON.stringify(data),
-        });
+        }).catch((err) => console.warn("Google Script error:", err));
       }
-
-      // Redirect to WhatsApp after saving to Google Sheet
-      const whatsappMessage = `Hi Step-Up Career, I just submitted my application on the website.\nName: ${data.name}\nRole Applied: ${data.role}\nSkills: ${data.skills}\nExperience: ${data.experience}\n(I am attaching my resume here)`;
-      window.location.href = `https://wa.me/917697334430?text=${encodeURIComponent(whatsappMessage)}`;
-      
     } catch (error) {
-      console.error(error);
-      alert("Something went wrong. Please try again.");
+      console.warn("Application submission error:", error);
     } finally {
       setIsSubmitting(false);
+      // Guarantee WhatsApp redirection with candidate details pre-filled
+      const whatsappMessage = `Hi Step-Up Career, I just submitted my application on the website.\nName: ${data.name || ""}\nRole Applied: ${data.role || ""}\nSkills: ${data.skills || ""}\nExperience: ${data.experience || ""}\n(I am attaching my resume here)`;
+      window.location.href = `https://wa.me/917697334430?text=${encodeURIComponent(whatsappMessage)}`;
     }
   };
 

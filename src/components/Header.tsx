@@ -158,18 +158,18 @@ export default function Header() {
               {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
             </button>
 
-            {/* Login Placeholder */}
+            {/* Employers CTA */}
             <Link 
-              href="/apply" 
-              className="text-sm font-semibold text-text-body hover:text-brand-accent transition-colors px-4 py-2"
+              href="/services#employers" 
+              className="text-sm font-semibold text-text-body hover:text-brand-accent transition-colors px-3 py-2 border border-border-main rounded-lg hover:bg-bg-card"
             >
-              Login
+              Hire Talent
             </Link>
 
-            {/* Apply Now CTA */}
+            {/* Candidate Apply Now CTA */}
             <Link 
               href="/apply" 
-              className="inline-flex items-center justify-center px-5 py-2.5 bg-brand-accent hover:bg-brand-accent-hover text-white text-sm font-semibold rounded-lg transition-all hover:scale-102 shadow-sm"
+              className="inline-flex items-center justify-center px-4 py-2 bg-brand-accent hover:bg-brand-accent-hover text-white text-sm font-semibold rounded-lg transition-all hover:scale-102 shadow-sm"
             >
               Apply Now
             </Link>
