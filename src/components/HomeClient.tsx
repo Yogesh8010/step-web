@@ -3,11 +3,12 @@
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Link from "next/link";
+import Image from "next/image";
 import { 
   ArrowRight, Star, TrendingUp, Users, CheckCircle, Search, 
   MapPin, Briefcase, Award, Shield, Timer, Globe, Heart, Share2,
   Calendar, Layers, Sparkles, Database, BadgeCheck, Clock, IndianRupee,
-  Cpu, Factory, BookOpen, Monitor
+  Cpu, Factory, BookOpen, Monitor, ShieldCheck, Zap
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Job } from "@/lib/getJobs";
@@ -95,10 +96,64 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
     { year: "2026", title: "PAN India Expansion", desc: "Expanded candidate networks to cover over 20+ major metropolitan and industrial hubs." }
   ];
 
+  const featuredSectors = [
+    {
+      id: "ems-electronics",
+      title: "EMS & Electronics Staffing",
+      subtitle: "SMT & Hardware Assembly",
+      desc: "PCB assembly, SMT line operations, cleanroom technicians, and embedded hardware engineers.",
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+      tag: "High Growth",
+      icon: Cpu,
+    },
+    {
+      id: "manufacturing-engineering",
+      title: "Manufacturing & Engineering",
+      subtitle: "Plant & Production Ops",
+      desc: "Plant managers, CNC supervisors, production engineers, and industrial safety officers.",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
+      tag: "Core Sector",
+      icon: Factory,
+    },
+    {
+      id: "edtech-recruitment",
+      title: "EdTech & Education Staffing",
+      subtitle: "Academic & Inside Sales",
+      desc: "Academic counselors, BDA sales teams, curriculum architects, and LMS platform leads.",
+      image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
+      tag: "Active Hiring",
+      icon: BookOpen,
+    },
+    {
+      id: "it-recruitment",
+      title: "IT & Software Staffing",
+      subtitle: "Cloud, DevOps & Full Stack",
+      desc: "Full-stack developers, QA automation specialists, DevOps leads, and technical directors.",
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
+      tag: "Tech Talent",
+      icon: Monitor,
+    },
+  ];
+
   const testimonials = [
-    { name: "Rahul Sharma", role: "Software Engineering Lead", review: "Step-Up Career connected me with an incredible hybrid role in Bangalore. The recruiter was transparent, and the process was incredibly fast!" },
-    { name: "Anjali Gupta", role: "HR Lead, VeloTech Solutions", review: "Partnering with Step-Up Career solved our bulk hiring bottleneck. They delivered verified, qualified resumes within days." },
-    { name: "Vikram Malhotra", role: "Product Manager", review: "The support I received during negotiation and onboarding was top-notch. It felt like having a personal career coach." }
+    { 
+      name: "Rahul Sharma", 
+      role: "Software Engineering Lead", 
+      review: "Step-Up Career connected me with an incredible hybrid role in Bangalore. The recruiter was transparent, and the process was incredibly fast!",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
+    },
+    { 
+      name: "Anjali Gupta", 
+      role: "HR Lead, VeloTech Solutions", 
+      review: "Partnering with Step-Up Career solved our bulk hiring bottleneck. They delivered verified, qualified resumes within days.",
+      avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80"
+    },
+    { 
+      name: "Vikram Malhotra", 
+      role: "Product Manager", 
+      review: "The support I received during negotiation and onboarding was top-notch. It felt like having a personal career coach.",
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"
+    }
   ];
 
   return (
@@ -152,41 +207,85 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
             </div>
           </motion.div>
           
-          {/* Hero Right Visual: Connection Line Graphic */}
+          {/* Hero Right Visual: High-Impact Image & Animated Floating Badges */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative hidden lg:block"
           >
-            <div className="w-full aspect-square max-w-lg mx-auto flex items-center justify-center relative">
-              <svg className="w-full h-full max-w-[400px]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M40 100 H160" stroke="#3B82F6" strokeWidth="2" strokeDasharray="4 4" />
-                <path d="M100 40 V160" stroke="#3B82F6" strokeWidth="2" strokeDasharray="4 4" />
-                <circle cx="100" cy="100" r="60" stroke="#3B82F6" strokeWidth="1" strokeOpacity="0.2" />
-                <circle cx="100" cy="100" r="30" stroke="#3B82F6" strokeWidth="1" strokeOpacity="0.4" />
-                
-                <circle cx="100" cy="100" r="12" fill="#3B82F6" />
-                <circle cx="100" cy="100" r="22" stroke="#3B82F6" strokeWidth="1" strokeOpacity="0.5" />
-                
-                <circle cx="40" cy="100" r="8" fill="#1E293B" className="dark:fill-white" />
-                <circle cx="40" cy="100" r="14" stroke="#3B82F6" strokeWidth="1" />
-                
-                <circle cx="160" cy="100" r="8" fill="#1E293B" className="dark:fill-white" />
-                <circle cx="160" cy="100" r="14" stroke="#3B82F6" strokeWidth="1" />
+            <div className="relative w-full aspect-[4/3] max-w-lg mx-auto">
+              {/* Outer decorative gradient aura */}
+              <div className="absolute -inset-2 bg-gradient-to-r from-brand-accent/30 via-teal-500/20 to-brand-accent/30 rounded-3xl blur-2xl opacity-60 dark:opacity-40 -z-10 animate-pulse"></div>
 
-                <circle cx="100" cy="40" r="8" fill="#3B82F6" />
-                <circle cx="100" cy="160" r="8" fill="#22C55E" />
-              </svg>
+              {/* Main Feature Workplace Image */}
+              <div className="relative w-full h-full rounded-2xl overflow-hidden border border-border-main shadow-2xl bg-bg-card group">
+                <Image
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80"
+                  alt="Step-Up Career Corporate Talent Consultation"
+                  fill
+                  priority
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.95] dark:brightness-[0.88]"
+                  sizes="(max-width: 1024px) 100vw, 500px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent"></div>
 
-              <div className="absolute top-10 left-10 bg-bg-card p-3 rounded-lg border border-border-main shadow-sm flex items-center gap-2">
-                <Sparkles size={16} className="text-brand-accent" />
-                <span className="text-xs font-bold text-text-heading">AI Job Matcher</span>
+                {/* Inset bottom pill banner */}
+                <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl glass border border-white/20 text-white backdrop-blur-md flex items-center justify-between">
+                  <div>
+                    <span className="text-[11px] uppercase tracking-wider text-teal-300 font-bold block">PAN-India Sourcing</span>
+                    <span className="text-xs font-semibold">20+ Industrial & Metropolitan Hubs</span>
+                  </div>
+                  <div className="flex -space-x-2">
+                    <div className="w-7 h-7 rounded-full bg-blue-600 border-2 border-white flex items-center justify-center text-[10px] font-bold">IT</div>
+                    <div className="w-7 h-7 rounded-full bg-teal-600 border-2 border-white flex items-center justify-center text-[10px] font-bold">EMS</div>
+                    <div className="w-7 h-7 rounded-full bg-amber-600 border-2 border-white flex items-center justify-center text-[10px] font-bold">MFG</div>
+                  </div>
+                </div>
               </div>
-              <div className="absolute bottom-10 right-10 bg-bg-card p-3 rounded-lg border border-border-main shadow-sm flex items-center gap-2">
-                <Database size={16} className="text-green-500" />
-                <span className="text-xs font-bold text-text-heading">Verified Databases</span>
-              </div>
+
+              {/* Floating Widget 1: Fast-Track Sourcing */}
+              <motion.div 
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-4 -left-4 bg-bg-card/95 backdrop-blur-md p-3.5 rounded-xl border border-border-main shadow-xl flex items-center gap-3 z-20"
+              >
+                <div className="w-9 h-9 rounded-lg bg-green-500/10 border border-green-500/20 text-green-500 flex items-center justify-center">
+                  <Zap size={18} />
+                </div>
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    <span className="text-xs font-bold text-text-heading">48h Fast Turnaround</span>
+                  </div>
+                  <p className="text-[11px] text-text-body font-medium">Pre-screened verified resumes</p>
+                </div>
+              </motion.div>
+
+              {/* Floating Widget 2: Google Reviews Badge */}
+              <motion.a
+                href="https://maps.app.goo.gl/83WeGccke8hHNxMH9"
+                target="_blank"
+                rel="noopener noreferrer"
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                className="absolute -bottom-5 -right-4 bg-bg-card/95 backdrop-blur-md p-3.5 rounded-xl border border-border-main shadow-xl flex items-center gap-3 z-20 hover:border-brand-accent transition-colors cursor-pointer"
+                title="View Google Reviews"
+              >
+                <div className="w-9 h-9 rounded-lg bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 flex items-center justify-center">
+                  <Star size={18} fill="currentColor" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs font-extrabold text-text-heading">4.9 / 5.0 Rating</span>
+                    <span className="text-[10px] text-brand-accent font-semibold">Google</span>
+                  </div>
+                  <p className="text-[11px] text-text-body font-medium">85+ authentic candidate reviews</p>
+                </div>
+              </motion.a>
             </div>
           </motion.div>
         </div>
@@ -210,8 +309,88 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
         </div>
       </section>
 
+      {/* Specialized Industry Sectors Spotlight (High-Impact Photo Cards) */}
+      <section className="py-24 px-4 sm:px-6 bg-bg-main relative z-10 transition-colors">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-accent/10 text-brand-accent text-xs font-semibold mb-2.5 border border-brand-accent/20">
+                <Sparkles size={13} /> Specialized Recruitment Expertise
+              </div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-text-heading tracking-tight font-heading">
+                Industries We Power
+              </h2>
+              <p className="text-text-body text-sm sm:text-base max-w-xl mt-2">
+                Custom talent sourcing pipelines built for industrial manufacturing, electronics production, education, and enterprise tech.
+              </p>
+            </div>
+            <Link 
+              href="/services" 
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-accent hover:text-brand-accent-hover hover:underline uppercase tracking-wider group"
+            >
+              Explore all 16 service sectors <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredSectors.map((sector, sIdx) => {
+              const Icon = sector.icon;
+              return (
+                <motion.div
+                  key={sector.id}
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: sIdx * 0.1 }}
+                  className="group relative rounded-2xl overflow-hidden border border-border-main bg-bg-card shadow-md hover:shadow-2xl transition-all h-[380px] flex flex-col justify-end"
+                >
+                  {/* Photo background with zoom on hover */}
+                  <Image
+                    src={sector.image}
+                    alt={sector.title}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700 brightness-[0.7] group-hover:brightness-[0.6]"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent"></div>
+
+                  {/* Card Content Overlay */}
+                  <div className="relative z-10 p-6 space-y-2.5 text-white">
+                    <div className="flex items-center justify-between">
+                      <span className="px-2.5 py-0.5 rounded-full bg-brand-accent/90 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+                        {sector.tag}
+                      </span>
+                      <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white">
+                        <Icon size={16} />
+                      </div>
+                    </div>
+
+                    <h3 className="text-xl font-bold text-white font-heading leading-snug">
+                      {sector.title}
+                    </h3>
+                    <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                      {sector.desc}
+                    </p>
+
+                    <div className="pt-2">
+                      <Link
+                        href={`/services#${sector.id}`}
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-300 group-hover:text-white transition-colors"
+                      >
+                        <span>Explore Roles</span>
+                        <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Live Featured Jobs Section */}
-      <section id="jobs" className="py-24 px-4 sm:px-6 bg-bg-main relative z-10 transition-colors">
+      <section id="jobs" className="py-24 px-4 sm:px-6 bg-bg-card border-t border-border-main relative z-10 transition-colors">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
@@ -454,25 +633,42 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
             {testimonials.map((item, idx) => (
               <motion.div 
                 key={idx}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.15 }}
-                className="p-6 bg-bg-card border border-border-main rounded-xl flex flex-col justify-between shadow-sm"
+                className="p-6 bg-bg-card border border-border-main rounded-2xl flex flex-col justify-between shadow-sm hover:border-brand-accent/40 transition-colors"
               >
-                <div className="flex text-yellow-400 justify-center mb-4">
-                  <Star size={16} fill="currentColor" />
-                  <Star size={16} fill="currentColor" />
-                  <Star size={16} fill="currentColor" />
-                  <Star size={16} fill="currentColor" />
-                  <Star size={16} fill="currentColor" />
-                </div>
-                <p className="text-sm text-text-body leading-relaxed mb-6 italic">
-                  &ldquo;{item.review}&rdquo;
-                </p>
                 <div>
-                  <h4 className="text-base font-bold text-text-heading font-heading">{item.name}</h4>
-                  <p className="text-xs text-text-body font-semibold">{item.role}</p>
+                  <div className="flex text-yellow-400 mb-4">
+                    <Star size={15} fill="currentColor" />
+                    <Star size={15} fill="currentColor" />
+                    <Star size={15} fill="currentColor" />
+                    <Star size={15} fill="currentColor" />
+                    <Star size={15} fill="currentColor" />
+                  </div>
+                  <p className="text-sm text-text-body leading-relaxed mb-6 italic">
+                    &ldquo;{item.review}&rdquo;
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3 pt-4 border-t border-border-main/50">
+                  <div className="relative w-11 h-11 rounded-full overflow-hidden border border-brand-accent/30 shrink-0">
+                    <Image
+                      src={item.avatar}
+                      alt={item.name}
+                      fill
+                      className="object-cover"
+                      sizes="44px"
+                    />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="text-sm font-bold text-text-heading font-heading flex items-center gap-1">
+                      {item.name}
+                      <CheckCircle size={13} className="text-brand-accent fill-brand-accent/20" />
+                    </h4>
+                    <p className="text-[11px] text-text-body font-medium">{item.role}</p>
+                  </div>
                 </div>
               </motion.div>
             ))}
