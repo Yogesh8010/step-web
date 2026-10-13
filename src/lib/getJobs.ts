@@ -9,6 +9,7 @@ export interface Job {
   salary: string;
   posted: string;
   tags: string[];
+  description?: string; // Optional: full JD from Google Sheet "Description" column
 }
 
 // Fallback data if the Google Sheet isn't linked yet or fails
@@ -21,7 +22,8 @@ const fallbackJobs: Job[] = [
     type: "Full-Time",
     salary: "18L - 25L",
     posted: "2 days ago",
-    tags: ["React", "Node.js", "MongoDB"]
+    tags: ["React", "Node.js", "MongoDB"],
+    description: "",
   },
   {
     id: "2",
@@ -31,7 +33,8 @@ const fallbackJobs: Job[] = [
     type: "Full-Time",
     salary: "6L - 9L",
     posted: "5 hours ago",
-    tags: ["Sales", "B2B", "Communication"]
+    tags: ["Sales", "B2B", "Communication"],
+    description: "",
   }
 ];
 
@@ -44,11 +47,11 @@ export async function getJobs(): Promise<Job[]> {
   }
 
   try {
-    const res = await fetch(SHEET_CSV_URL, { cache: "no-store" }); // Disable cache so jobs update instantly
+    const res = await fetch(SHEET_CSV_URL, { cache: "no-store" });
     if (!res.ok) throw new Error("Failed to fetch Google Sheet");
-    
+
     const csvText = await res.text();
-    
+
     return new Promise((resolve) => {
       Papa.parse(csvText, {
         header: true,
@@ -63,6 +66,8 @@ export async function getJobs(): Promise<Job[]> {
             salary: row.Salary || "Not Disclosed",
             posted: row.Posted || "Just now",
             tags: row.Tags ? row.Tags.split(",").map((t: string) => t.trim()) : [],
+            // Read Description column — empty string if column doesn't exist or is blank
+            description: row.Description ? row.Description.trim() : "",
           }));
           resolve(parsedJobs);
         },

@@ -30,6 +30,9 @@ export default function JobList({
   const [selectedJobId, setSelectedJobId] = useState<string>(startingJobId);
   const [savedJobs, setSavedJobs] = useState<Record<string, boolean>>({});
   const [mobileDetailOpen, setMobileDetailOpen] = useState(Boolean(initialJobId));
+  // Cache AI-generated JDs keyed by job id so we don't re-fetch on every click
+  const [aiJdCache, setAiJdCache] = useState<Record<string, string>>({});
+  const [aiJdLoading, setAiJdLoading] = useState(false);
 
   // Lock background scroll on mobile when detail modal is open
   useEffect(() => {
@@ -41,6 +44,34 @@ export default function JobList({
       };
     }
   }, [mobileDetailOpen]);
+
+  // Auto-fetch AI JD when a job with no description is selected
+  useEffect(() => {
+    const selected = initialJobs.find(j => j.id === selectedJobId);
+    if (!selected) return;
+    // Already has a real JD or already cached — skip
+    if (selected.description || aiJdCache[selectedJobId]) return;
+
+    setAiJdLoading(true);
+    const params = new URLSearchParams({
+      title: selected.title,
+      tags: (selected.tags || []).join(", "),
+      salary: selected.salary,
+      location: selected.location,
+      type: selected.type,
+    });
+
+    fetch(`/api/generate-jd?${params.toString()}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.generated && data.description) {
+          setAiJdCache(prev => ({ ...prev, [selectedJobId]: data.description }));
+        }
+      })
+      .catch(() => {}) // Fail silently — fallback text handles it
+      .finally(() => setAiJdLoading(false));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedJobId]);
 
   // Filter chips
   const filterChips = ["All", "Full-Time", "Remote", "Hybrid", "Engineering", "Sales"];
@@ -424,10 +455,22 @@ export default function JobList({
               {/* Job Overview */}
               <div className="space-y-3 text-sm text-text-body leading-relaxed border-t border-border-main pt-6">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading">About The Position</h4>
-                <p>
-                  Step-Up Career is exclusively recruiting for the <strong className="text-text-heading">{selectedJob.title}</strong> role on behalf of a verified employer partner. 
-                  We manage the complete hiring process — from application screening and shortlisting to interview scheduling and offer coordination — so you get faster responses with zero hassle.
-                </p>
+
+                {/* Priority: Sheet JD → AI-generated → fallback */}
+                {selectedJob.description ? (
+                  <p className="whitespace-pre-line">{selectedJob.description}</p>
+                ) : aiJdLoading ? (
+                  <div className="flex items-center gap-2 text-xs text-text-body/60 animate-pulse">
+                    <Sparkles size={13} /> Generating job description…
+                  </div>
+                ) : aiJdCache[selectedJob.id] ? (
+                  <p>{aiJdCache[selectedJob.id]}</p>
+                ) : (
+                  <p>
+                    Step-Up Career is exclusively recruiting for the <strong className="text-text-heading">{selectedJob.title}</strong> role on behalf of a verified employer partner.
+                    We manage the complete hiring process — from application screening and shortlisting to interview scheduling and offer coordination — so you get faster responses with zero hassle.
+                  </p>
+                )}
 
                 <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading pt-2">Key Responsibilities</h4>
                 <ul className="space-y-1.5 list-disc list-inside text-xs text-text-body">
@@ -445,6 +488,7 @@ export default function JobList({
                   <li>Dedicated placement support from application to day-one onboarding.</li>
                 </ul>
               </div>
+
 
               {/* Footer inside details */}
               <div className="pt-4 border-t border-border-main flex items-center justify-between text-xs text-text-body">
@@ -565,10 +609,22 @@ export default function JobList({
             {/* Job Overview / Description */}
             <div className="space-y-3.5 text-sm text-text-body leading-relaxed border-t border-border-main pt-5">
               <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading">About The Position</h4>
-              <p className="text-xs sm:text-sm leading-relaxed">
-                Step-Up Career is exclusively recruiting for the <strong className="text-text-heading">{selectedJob.title}</strong> role on behalf of a verified employer partner.
-                We manage the complete hiring process — from application screening and shortlisting to interview scheduling and offer coordination — so you get faster responses with zero hassle.
-              </p>
+
+              {/* Priority: Sheet JD → AI-generated → fallback */}
+              {selectedJob.description ? (
+                <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-line">{selectedJob.description}</p>
+              ) : aiJdLoading ? (
+                <div className="flex items-center gap-2 text-xs text-text-body/60 animate-pulse">
+                  <Sparkles size={13} /> Generating job description…
+                </div>
+              ) : aiJdCache[selectedJob.id] ? (
+                <p className="text-xs sm:text-sm leading-relaxed">{aiJdCache[selectedJob.id]}</p>
+              ) : (
+                <p className="text-xs sm:text-sm leading-relaxed">
+                  Step-Up Career is exclusively recruiting for the <strong className="text-text-heading">{selectedJob.title}</strong> role on behalf of a verified employer partner.
+                  We manage the complete hiring process — from application screening and shortlisting to interview scheduling and offer coordination — so you get faster responses with zero hassle.
+                </p>
+              )}
 
               <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading pt-2">Key Responsibilities</h4>
               <ul className="space-y-2 list-disc list-inside text-xs text-text-body">
