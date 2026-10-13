@@ -17,6 +17,25 @@ function ApplyForm() {
     setIsSubmitting(true);
     
     const formData = new FormData(e.currentTarget);
+    const fileInput = document.getElementById("resume") as HTMLInputElement;
+    const file = fileInput?.files?.[0];
+
+    // Convert resume file to base64 so Apps Script can save it to Google Drive
+    let fileBase64 = "";
+    let fileMimeType = "";
+    if (file) {
+      fileMimeType = file.type || "application/octet-stream";
+      fileBase64 = await new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result as string;
+          // Strip the data URL prefix (e.g. "data:application/pdf;base64,")
+          resolve(result.split(",")[1] || "");
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
     const data = {
       name: formData.get("name"),
       phone: formData.get("phone"),
@@ -24,20 +43,19 @@ function ApplyForm() {
       role: formData.get("role"),
       experience: formData.get("experience"),
       skills: formData.get("skills"),
-      fileName: fileName
+      fileName: file?.name || "",
+      fileBase64,
+      fileMimeType,
     };
 
     try {
       const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL;
       
       if (GOOGLE_SCRIPT_URL) {
-        // We use text/plain to avoid CORS preflight issues with Google Scripts
         await fetch(GOOGLE_SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
-          headers: {
-            "Content-Type": "text/plain",
-          },
+          headers: { "Content-Type": "text/plain" },
           body: JSON.stringify(data),
         }).catch((err) => console.warn("Google Script error:", err));
       }
@@ -45,7 +63,6 @@ function ApplyForm() {
       console.warn("Application submission error:", error);
     } finally {
       setIsSubmitting(false);
-      // Guarantee WhatsApp redirection with candidate details pre-filled
       const whatsappMessage = `Hi Step-Up Career, I just submitted my application on the website.\nName: ${data.name || ""}\nRole Applied: ${data.role || ""}\nSkills: ${data.skills || ""}\nExperience: ${data.experience || ""}\n(I am attaching my resume here)`;
       window.location.href = `https://wa.me/917697334430?text=${encodeURIComponent(whatsappMessage)}`;
     }
