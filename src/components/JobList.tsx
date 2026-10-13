@@ -482,10 +482,10 @@ export default function JobList({
 
                 <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading pt-2">Why Apply Through Step-Up Career</h4>
                 <ul className="space-y-1.5 list-disc list-inside text-xs text-text-body">
-                  <li>Competitive industry compensation: {selectedJob.salary}.</li>
-                  <li>Direct shortlisting to the employer — no middlemen, no unnecessary delays.</li>
-                  <li>100% free for candidates. We are paid by employers, never by you.</li>
-                  <li>Dedicated placement support from application to day-one onboarding.</li>
+                  <li>Salary: <strong className="text-text-heading">{selectedJob.salary}</strong> — competitive, as per industry standards.</li>
+                  <li>Your profile goes directly to the hiring manager — no unnecessary rounds.</li>
+                  <li>Interview feedback shared within 48 hours of every round.</li>
+                  <li>Dedicated relationship manager to guide you through the full process.</li>
                 </ul>
               </div>
 
@@ -636,10 +636,10 @@ export default function JobList({
 
               <h4 className="text-xs font-bold uppercase tracking-wider text-text-heading pt-2">Why Apply Through Step-Up Career</h4>
               <ul className="space-y-2 list-disc list-inside text-xs text-text-body">
-                <li>Competitive industry compensation: {selectedJob.salary}.</li>
-                <li>Direct shortlisting to the employer — no middlemen, no unnecessary delays.</li>
-                <li>100% free for candidates. We are paid by employers, never by you.</li>
-                <li>Dedicated placement support from application to day-one onboarding.</li>
+                <li>Salary: <strong className="text-text-heading">{selectedJob.salary}</strong> — competitive, as per industry standards.</li>
+                <li>Your profile goes directly to the hiring manager — no unnecessary rounds.</li>
+                <li>Interview feedback shared within 48 hours of every round.</li>
+                <li>Dedicated relationship manager to guide you through the full process.</li>
               </ul>
             </div>
 
