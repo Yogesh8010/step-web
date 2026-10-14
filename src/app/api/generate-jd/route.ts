@@ -10,9 +10,9 @@ export async function GET(req: NextRequest) {
 
   const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-  // If no API key configured, return a structured fallback
+  // Debug: tell client exactly what's happening without exposing the key
   if (!GEMINI_API_KEY) {
-    return NextResponse.json({ generated: false, description: "" });
+    return NextResponse.json({ generated: false, description: "", debug: "no_key" });
   }
 
   const prompt = `You are writing a professional job description for a recruitment platform called Step-Up Career.
@@ -39,7 +39,7 @@ Only output the description paragraph. No headings, no bullet points, no extra t
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-goog-api-key": GEMINI_API_KEY, // Required for new AQ. format keys
+          "x-goog-api-key": GEMINI_API_KEY,
         },
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
@@ -52,8 +52,9 @@ Only output the description paragraph. No headings, no bullet points, no extra t
     );
 
     if (!response.ok) {
-      console.error("Gemini API error:", response.status);
-      return NextResponse.json({ generated: false, description: "" });
+      const errText = await response.text();
+      console.error("Gemini API error:", response.status, errText);
+      return NextResponse.json({ generated: false, description: "", debug: `api_error_${response.status}` });
     }
 
     const data = await response.json();
@@ -62,6 +63,6 @@ Only output the description paragraph. No headings, no bullet points, no extra t
     return NextResponse.json({ generated: true, description: text });
   } catch (err) {
     console.error("generate-jd error:", err);
-    return NextResponse.json({ generated: false, description: "" });
+    return NextResponse.json({ generated: false, description: "", debug: "fetch_error" });
   }
 }
