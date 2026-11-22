@@ -95,7 +95,7 @@ export default function Header() {
           <Link 
             href="/" 
             onClick={handleHomeClick}
-            className="flex items-center group shrink-0 cursor-pointer"
+            className="flex items-center group shrink-0 cursor-pointer mr-8 lg:mr-12"
             title="Step-Up Career Home"
           >
             <Image 
@@ -109,7 +109,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden xl:flex items-center gap-6 font-semibold text-sm">
+          <nav className="hidden xl:flex items-center gap-7 font-semibold text-sm">
             {navLinks.map((link) => (
               <Link 
                 key={link.name} 

@@ -10,7 +10,7 @@ import {
   Calendar, Layers, Sparkles, Database, BadgeCheck, Clock, IndianRupee,
   Cpu, Factory, BookOpen, Monitor, ShieldCheck, Zap, Activity,
   Sliders, FileCheck, CheckCircle2, ChevronRight, BarChart3,
-  Network, Eye, RefreshCw, Send, Building2, PhoneCall
+  Network, Eye, RefreshCw, Send, Building2, PhoneCall, X, ExternalLink
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Job } from "@/lib/getJobs";
@@ -51,11 +51,49 @@ function Counter({ value, duration = 1.5, live = false }: { value: string; durat
   return <span>{count}{suffix}</span>;
 }
 
+interface CardModalData {
+  title: string;
+  badge: string;
+  subtitle?: string;
+  iconText?: string;
+  desc: string;
+  points: string[];
+  metricLabel?: string;
+  metricValue?: string;
+  primaryActionText: string;
+  primaryActionUrl: string;
+  secondaryActionText?: string;
+  secondaryActionUrl?: string;
+}
+
 export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
   const [savedJobs, setSavedJobs] = useState<Record<string, boolean>>({});
   const [heroTab, setHeroTab] = useState<"ai-data" | "workforce">("ai-data");
   const [activePipelineStep, setActivePipelineStep] = useState(0);
   const [selectedPillar, setSelectedPillar] = useState<"all" | "ai-data" | "workforce">("all");
+  const [activeModalCard, setActiveModalCard] = useState<CardModalData | null>(null);
+
+  // Lock background scroll when modal is open
+  useEffect(() => {
+    if (activeModalCard) {
+      const orig = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = orig;
+      };
+    }
+  }, [activeModalCard]);
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveModalCard(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   // Project Configurator state
   const [configService, setConfigService] = useState<"ai-data" | "recruitment">("ai-data");
@@ -688,8 +726,22 @@ Please connect with me to discuss requirements.`;
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: idx * 0.08 }}
-                    className="p-6 rounded-2xl bg-bg-card border border-border-main hover:border-brand-accent/50 hover:shadow-lg transition-all flex flex-col justify-between group"
+                    whileHover={{ y: -6, scale: 1.02 }}
+                    transition={{ duration: 0.3, delay: idx * 0.05 }}
+                    onClick={() => setActiveModalCard({
+                      title: svc.title,
+                      badge: `AI Data Operations • ${svc.tag}`,
+                      iconText: "⚡",
+                      desc: svc.desc,
+                      points: svc.features,
+                      metricLabel: "Operational Standard",
+                      metricValue: "Double-Pass QA & SLA Protected",
+                      primaryActionText: "Discuss Scope via WhatsApp",
+                      primaryActionUrl: `https://wa.me/917697334430?text=${encodeURIComponent(`Hi Step-Up Career, I would like to discuss: ${svc.title}`)}`,
+                      secondaryActionText: "View Dedicated AI Data Page",
+                      secondaryActionUrl: "/ai-data"
+                    })}
+                    className="p-6 rounded-2xl bg-bg-card border border-border-main hover:border-brand-accent/50 hover:shadow-2xl transition-all flex flex-col justify-between group cursor-pointer"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-3">
@@ -718,17 +770,11 @@ Please connect with me to discuss requirements.`;
                       </ul>
                     </div>
 
-                    <div className="pt-5 mt-4 border-t border-border-main/50">
-                      <a 
-                        href="#project-configurator"
-                        onClick={() => {
-                          setConfigService("ai-data");
-                          setConfigSubtype(svc.title);
-                        }}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-brand-accent hover:underline"
-                      >
-                        <span>Discuss this capability</span> &rarr;
-                      </a>
+                    <div className="pt-5 mt-4 border-t border-border-main/50 flex items-center justify-between text-xs">
+                      <span className="font-bold text-brand-accent group-hover:underline flex items-center gap-1">
+                        <span>Click for overview</span> &rarr;
+                      </span>
+                      <span className="text-[10px] text-text-body/60 font-mono">Quick Pop-up</span>
                     </div>
                   </motion.div>
                 ))}
@@ -764,8 +810,22 @@ Please connect with me to discuss requirements.`;
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: idx * 0.08 }}
-                    className="p-6 rounded-2xl bg-bg-card border border-border-main hover:border-brand-accent/50 hover:shadow-lg transition-all flex flex-col justify-between group"
+                    whileHover={{ y: -6, scale: 1.02 }}
+                    transition={{ duration: 0.3, delay: idx * 0.05 }}
+                    onClick={() => setActiveModalCard({
+                      title: svc.title,
+                      badge: `Workforce • ${svc.tag}`,
+                      iconText: "👥",
+                      desc: svc.desc,
+                      points: svc.features,
+                      metricLabel: "Candidate Turnaround",
+                      metricValue: "48-Hour Verified Shortlists",
+                      primaryActionText: "Discuss Hiring Needs via WhatsApp",
+                      primaryActionUrl: `https://wa.me/917697334430?text=${encodeURIComponent(`Hi Step-Up Career, I have a requirement for: ${svc.title}`)}`,
+                      secondaryActionText: "Explore Workforce Solutions",
+                      secondaryActionUrl: `/services#${svc.id}`
+                    })}
+                    className="p-6 rounded-2xl bg-bg-card border border-border-main hover:border-brand-accent/50 hover:shadow-2xl transition-all flex flex-col justify-between group cursor-pointer"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-3">
@@ -794,21 +854,11 @@ Please connect with me to discuss requirements.`;
                       </ul>
                     </div>
 
-                    <div className="pt-5 mt-4 border-t border-border-main/50 flex items-center justify-between">
-                      <Link 
-                        href={`/services#${svc.id}`}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-brand-accent hover:underline"
-                      >
-                        <span>Learn more</span> &rarr;
-                      </Link>
-                      <a 
-                        href="https://wa.me/917697334430?text=Hi%20Step-Up%20Career,%20we%20have%20a%20hiring%20requirement%20to%20discuss."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[11px] font-semibold text-text-body hover:text-text-heading"
-                      >
-                        Fast Enquiry
-                      </a>
+                    <div className="pt-5 mt-4 border-t border-border-main/50 flex items-center justify-between text-xs">
+                      <span className="font-bold text-brand-accent group-hover:underline flex items-center gap-1">
+                        <span>Click for overview</span> &rarr;
+                      </span>
+                      <span className="text-[10px] text-text-body/60 font-mono">Quick Pop-up</span>
                     </div>
                   </motion.div>
                 ))}
@@ -900,11 +950,32 @@ Please connect with me to discuss requirements.`;
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-indigo-500/50 transition-all flex flex-col justify-between shadow-xl group"
+              whileHover={{ y: -8, scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setActiveModalCard({
+                title: "Recruitment CRM",
+                badge: "Enterprise CRM • Client Side",
+                subtitle: "Manage High-Value Clients & Revenue Operations",
+                iconText: "🎯",
+                desc: "Centralize corporate accounts, client contracts, agreed fee percentages, commercial terms, and statutory GST invoicing. Never miss replacement guarantee deadlines.",
+                points: [
+                  "Client contracts, commercial terms & 18% GST invoicing",
+                  "Open job requisitions & mandate lifecycle tracking",
+                  "Guarantee tenure countdown & replacement warranty alerts",
+                  "Client magic link portal for instant 1-click shortlist review",
+                  "Automated payment reconciliation and billing reports"
+                ],
+                metricLabel: "Mandates & Billing",
+                metricValue: "18% GST Compliant",
+                primaryActionText: "Access CRM Portal (crm.stepup-career.in)",
+                primaryActionUrl: "https://crm.stepup-career.in",
+                secondaryActionText: "Request Client Credentials",
+                secondaryActionUrl: "https://wa.me/917697334430?text=Hi%20Step-Up%20Career,%20we%20want%20to%20request%20client%20access%20to%20your%20Recruitment%20CRM."
+              })}
+              className="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-indigo-500/60 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all flex flex-col justify-between shadow-xl group cursor-pointer"
             >
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/25 flex items-center justify-center text-indigo-400 text-xl font-bold mb-6 group-hover:scale-105 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/25 flex items-center justify-center text-indigo-400 text-xl font-bold mb-6 group-hover:scale-110 transition-transform">
                   🎯
                 </div>
                 <div className="flex items-center justify-between mb-2">
@@ -939,8 +1010,10 @@ Please connect with me to discuss requirements.`;
               </div>
 
               <div className="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between text-xs">
-                <span className="text-slate-400 font-mono">Mandates &amp; Invoicing</span>
-                <span className="text-indigo-400 font-semibold">18% GST Compliant</span>
+                <span className="text-indigo-400 group-hover:underline font-semibold flex items-center gap-1">
+                  <span>Click for quick overview</span> &rarr;
+                </span>
+                <span className="text-indigo-400 font-semibold font-mono">18% GST Compliant</span>
               </div>
             </motion.div>
 
@@ -949,13 +1022,34 @@ Please connect with me to discuss requirements.`;
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-sky-500/50 transition-all flex flex-col justify-between shadow-xl group relative overflow-hidden"
+              whileHover={{ y: -8, scale: 1.02 }}
+              transition={{ duration: 0.3, delay: 0.05 }}
+              onClick={() => setActiveModalCard({
+                title: "Applicant Tracking System (ATS)",
+                badge: "Sourcing Engine • Multi-Portal",
+                subtitle: "Source & Place Talent 3x Faster",
+                iconText: "⚡",
+                desc: "Connect your sourcing funnels (Naukri, Apna, LinkedIn, Direct Uploads) into one unified talent repository with strict deduplication and ownership locks.",
+                points: [
+                  "1-click bulk resume imports from Naukri, Apna & LinkedIn",
+                  "Multi-stage visual hiring pipeline (Screening → Joined)",
+                  "Duplicate phone & email detection with ownership locking",
+                  "Recruiter calling logs, automated WhatsApp & SMS templates",
+                  "E.164 phone normalization guaranteeing clean talent databases"
+                ],
+                metricLabel: "Deduplication Engine",
+                metricValue: "E.164 Locked",
+                primaryActionText: "Access CRM Portal (crm.stepup-career.in)",
+                primaryActionUrl: "https://crm.stepup-career.in",
+                secondaryActionText: "Request Sourcing Demo",
+                secondaryActionUrl: "https://wa.me/917697334430?text=Hi%20Step-Up%20Career,%20we%20want%20to%20see%20your%20ATS%20system."
+              })}
+              className="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-sky-500/60 hover:shadow-2xl hover:shadow-sky-500/10 transition-all flex flex-col justify-between shadow-xl group relative overflow-hidden cursor-pointer"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/10 rounded-full filter blur-2xl pointer-events-none"></div>
 
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/25 flex items-center justify-center text-sky-400 text-xl font-bold mb-6 group-hover:scale-105 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/25 flex items-center justify-center text-sky-400 text-xl font-bold mb-6 group-hover:scale-110 transition-transform">
                   ⚡
                 </div>
                 <div className="flex items-center justify-between mb-2">
@@ -990,8 +1084,10 @@ Please connect with me to discuss requirements.`;
               </div>
 
               <div className="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between text-xs">
-                <span className="text-slate-400 font-mono">Zero Duplicates</span>
-                <span className="text-sky-400 font-semibold">E.164 Locked</span>
+                <span className="text-sky-400 group-hover:underline font-semibold flex items-center gap-1">
+                  <span>Click for quick overview</span> &rarr;
+                </span>
+                <span className="text-sky-400 font-semibold font-mono">E.164 Locked</span>
               </div>
             </motion.div>
 
@@ -1000,11 +1096,32 @@ Please connect with me to discuss requirements.`;
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-teal-500/50 transition-all flex flex-col justify-between shadow-xl group"
+              whileHover={{ y: -8, scale: 1.02 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              onClick={() => setActiveModalCard({
+                title: "Team HRMS & Operations",
+                badge: "Staff & Payroll • Internal",
+                subtitle: "Empower Your Internal Team & Operations",
+                iconText: "👥",
+                desc: "Empower your internal agency recruiters and management with 1-click duty clock-ins, leave approvals, automated salary slips with 12% PF calculations, and live activity leaderboards.",
+                points: [
+                  "1-click duty clock-in, break timer & real-time presence board",
+                  "Leave application & manager authorization workflows",
+                  "Department salary structure with 12% statutory PF & LOP calculation",
+                  "Recruiter calling targets, submissions tracking & leaderboards",
+                  "Automated salary slip generation and monthly payroll exports"
+                ],
+                metricLabel: "Productivity & Payroll",
+                metricValue: "12% PF Automated",
+                primaryActionText: "Access CRM Portal (crm.stepup-career.in)",
+                primaryActionUrl: "https://crm.stepup-career.in",
+                secondaryActionText: "Request Enterprise Setup",
+                secondaryActionUrl: "https://wa.me/917697334430?text=Hi%20Step-Up%20Career,%20we%20want%20to%20enquire%20about%20your%20Recruitment%20HRMS."
+              })}
+              className="p-8 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-teal-500/60 hover:shadow-2xl hover:shadow-teal-500/10 transition-all flex flex-col justify-between shadow-xl group cursor-pointer"
             >
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-teal-500/10 border border-teal-500/25 flex items-center justify-center text-teal-400 text-xl font-bold mb-6 group-hover:scale-105 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-teal-500/10 border border-teal-500/25 flex items-center justify-center text-teal-400 text-xl font-bold mb-6 group-hover:scale-110 transition-transform">
                   👥
                 </div>
                 <div className="flex items-center justify-between mb-2">
@@ -1039,8 +1156,10 @@ Please connect with me to discuss requirements.`;
               </div>
 
               <div className="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between text-xs">
-                <span className="text-slate-400 font-mono">Operations</span>
-                <span className="text-teal-400 font-semibold">12% PF &amp; Payroll</span>
+                <span className="text-teal-400 group-hover:underline font-semibold flex items-center gap-1">
+                  <span>Click for quick overview</span> &rarr;
+                </span>
+                <span className="text-teal-400 font-semibold font-mono">12% PF &amp; Payroll</span>
               </div>
             </motion.div>
           </div>
@@ -1474,6 +1593,117 @@ Please connect with me to discuss requirements.`;
           </div>
         </div>
       </section>
+      {/* Interactive Card Details Pop-Up Modal */}
+      <AnimatePresence>
+        {activeModalCard && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setActiveModalCard(null)}
+              className="fixed inset-0 bg-black/75 backdrop-blur-md"
+            />
+
+            {/* Modal Dialog Card */}
+            <motion.div
+              initial={{ scale: 0.92, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.92, opacity: 0, y: 20 }}
+              transition={{ type: "spring", stiffness: 350, damping: 25 }}
+              className="relative w-full max-w-xl rounded-3xl bg-bg-card border border-border-main p-6 sm:p-8 shadow-2xl z-10 my-8 overflow-hidden text-left"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Subtle Atmospheric Glow inside Modal */}
+              <div className="absolute top-0 right-0 w-48 h-48 bg-brand-accent/10 rounded-full filter blur-3xl pointer-events-none" />
+
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setActiveModalCard(null)}
+                className="absolute top-5 right-5 p-2 rounded-xl text-text-body hover:text-text-heading hover:bg-bg-main border border-transparent hover:border-border-main transition-colors cursor-pointer"
+                aria-label="Close dialog"
+              >
+                <X size={20} />
+              </button>
+
+              {/* Header */}
+              <div className="flex items-center gap-3.5 mb-4 pr-10">
+                {activeModalCard.iconText && (
+                  <div className="w-12 h-12 rounded-2xl bg-brand-accent/10 border border-brand-accent/25 flex items-center justify-center text-2xl shrink-0">
+                    {activeModalCard.iconText}
+                  </div>
+                )}
+                <div>
+                  <span className="px-2.5 py-0.5 rounded-md bg-brand-accent/15 text-brand-accent text-[10px] font-bold uppercase tracking-wider block w-fit mb-1">
+                    {activeModalCard.badge}
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-text-heading font-heading leading-snug">
+                    {activeModalCard.title}
+                  </h3>
+                </div>
+              </div>
+
+              {activeModalCard.subtitle && (
+                <p className="text-xs font-semibold text-brand-accent mb-2">
+                  {activeModalCard.subtitle}
+                </p>
+              )}
+
+              <p className="text-xs sm:text-sm text-text-body leading-relaxed mb-6">
+                {activeModalCard.desc}
+              </p>
+
+              {/* Verified Checklist Points */}
+              <div className="space-y-2.5 pt-4 border-t border-border-main mb-6">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-text-body/70 block mb-2 font-mono">
+                  Key Specifications &amp; Capabilities
+                </span>
+                {activeModalCard.points.map((pt, pIdx) => (
+                  <div key={pIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-text-heading">
+                    <CheckCircle2 size={16} className="text-teal-500 shrink-0 mt-0.5" />
+                    <span>{pt}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Metric strip if available */}
+              {activeModalCard.metricLabel && (
+                <div className="p-3 rounded-xl bg-bg-main border border-border-main flex items-center justify-between text-xs mb-6">
+                  <span className="text-text-body font-mono">{activeModalCard.metricLabel}</span>
+                  <span className="font-bold text-brand-accent font-mono">{activeModalCard.metricValue}</span>
+                </div>
+              )}
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+                <a
+                  href={activeModalCard.primaryActionUrl}
+                  target={activeModalCard.primaryActionUrl.startsWith("http") ? "_blank" : undefined}
+                  rel={activeModalCard.primaryActionUrl.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="w-full sm:flex-1 py-3.5 px-6 rounded-xl bg-brand-accent hover:bg-brand-accent-hover text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-2"
+                >
+                  <span>{activeModalCard.primaryActionText}</span>
+                  <ArrowRight size={15} />
+                </a>
+
+                {activeModalCard.secondaryActionUrl && (
+                  <a
+                    href={activeModalCard.secondaryActionUrl}
+                    target={activeModalCard.secondaryActionUrl.startsWith("http") ? "_blank" : undefined}
+                    rel={activeModalCard.secondaryActionUrl.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="w-full sm:w-auto py-3.5 px-5 rounded-xl bg-bg-main hover:bg-border-main border border-border-main text-text-heading font-semibold text-xs transition-all text-center"
+                  >
+                    <span>{activeModalCard.secondaryActionText}</span>
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

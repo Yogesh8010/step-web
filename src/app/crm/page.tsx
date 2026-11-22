@@ -90,7 +90,6 @@ export default function CRMPage() {
                 className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm transition-all shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-2"
               >
                 <span>Access CRM Portal</span>
-                <span className="hidden sm:inline text-xs opacity-80">(crm.stepup-career.in)</span>
                 <ExternalLink size={16} />
               </a>
 
@@ -198,7 +197,6 @@ export default function CRMPage() {
                 className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm transition-all shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2"
               >
                 <span>Access CRM Portal</span>
-                <span className="hidden sm:inline text-xs opacity-80">(crm.stepup-career.in)</span>
                 <ExternalLink size={16} />
               </a>
               <a
