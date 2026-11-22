@@ -61,7 +61,7 @@ export default function Footer() {
           {/* Newsletter */}
           <div className="space-y-3">
             <h4 className="text-text-heading font-semibold text-sm">Subscribe to our Newsletter</h4>
-            <form onSubmit={(e) => e.preventDefault()} className="flex gap-2 max-w-sm">
+            <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-2 max-w-sm">
               <input 
                 type="email" 
                 placeholder="Enter your work email" 

@@ -71,25 +71,26 @@ export default function CRMPage() {
               🚀 Enterprise Recruitment CRM + ATS + HRMS
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-text-heading font-heading tracking-tight leading-[1.1]">
-              Powering Modern Recruitment Agencies <br />
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-text-heading font-heading tracking-tight leading-[1.1] break-words">
+              Powering Modern Recruitment Agencies <br className="hidden sm:inline" />
               <span className="bg-gradient-to-r from-indigo-500 via-sky-500 to-teal-500 bg-clip-text text-transparent">
                 from Sourcing to Payroll
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg text-text-body max-w-3xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-lg text-text-body max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
               Stop juggling multiple disjointed tools. Manage client mandates, source and screen candidates across portals, schedule interviews, track attendance, and generate payslips — all under one roof.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 px-2 sm:px-0">
               <a
                 href="https://crm.stepup-career.in"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm transition-all shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm transition-all shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-2"
               >
-                <span>Access CRM Portal (crm.stepup-career.in)</span>
+                <span>Access CRM Portal</span>
+                <span className="hidden sm:inline text-xs opacity-80">(crm.stepup-career.in)</span>
                 <ExternalLink size={16} />
               </a>
 
@@ -97,7 +98,7 @@ export default function CRMPage() {
                 href="https://wa.me/917697334430?text=Hi%20Step-Up%20Career,%20I%20would%20like%20to%20request%20client%20access%20to%20the%20Recruitment%20CRM."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 bg-bg-card hover:bg-border-main/80 text-text-heading border border-border-main font-bold rounded-xl text-sm transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-bg-card hover:bg-border-main/80 text-text-heading border border-border-main font-bold rounded-xl text-sm transition-all flex items-center justify-center gap-2"
               >
                 <span>Request Client Access</span>
                 <ArrowRight size={16} />
@@ -189,21 +190,22 @@ export default function CRMPage() {
             <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
               Log into the official Step-Up Career Recruitment CRM or request dedicated credentials for your organization.
             </p>
-            <div className="pt-2 flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="pt-2 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <a
                 href="https://crm.stepup-career.in"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm transition-all shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm transition-all shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2"
               >
-                <span>Access CRM Portal (crm.stepup-career.in)</span>
+                <span>Access CRM Portal</span>
+                <span className="hidden sm:inline text-xs opacity-80">(crm.stepup-career.in)</span>
                 <ExternalLink size={16} />
               </a>
               <a
                 href="https://wa.me/917697334430?text=Hi%20Step-Up%20Career,%20we%20want%20to%20request%20access%20to%20your%20Recruitment%20CRM."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold rounded-xl text-sm transition-all flex items-center justify-center"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold rounded-xl text-sm transition-all flex items-center justify-center"
               >
                 <span>Request Client Access</span>
               </a>

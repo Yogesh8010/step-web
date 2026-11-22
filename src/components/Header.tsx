@@ -128,7 +128,7 @@ export default function Header() {
           </nav>
 
           {/* Social Icons, Theme Toggle & CTAs (Desktop) */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden xl:flex items-center gap-4">
             {/* Global Search Icon Link */}
             <Link href="/jobs" className="text-text-body hover:text-brand-accent p-2 transition-colors" title="Search Jobs">
               <Search size={18} />
@@ -192,8 +192,20 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Mobile Controls & Hamburger Button (Optimized for iOS & Touch) */}
-          <div className="flex lg:hidden items-center gap-1 sm:gap-2">
+          {/* Mobile & Tablet Controls & Hamburger Button (Visible on screens < 1280px) */}
+          <div className="flex xl:hidden items-center gap-1 sm:gap-2">
+            {/* Quick CRM Link on Tablet */}
+            <a 
+              href="https://crm.stepup-career.in"
+              target="_blank"
+              rel="noopener noreferrer" 
+              className="hidden sm:flex text-xs font-bold text-indigo-500 bg-indigo-500/10 px-2.5 py-1.5 rounded-lg border border-indigo-500/30 items-center gap-1"
+              title="CRM Portal"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+              <span>CRM</span>
+            </a>
+
             <Link
               href="/jobs"
               className="text-text-body hover:text-brand-accent p-2.5 transition-colors rounded-full hover:bg-bg-card active:scale-95 touch-manipulation"
@@ -228,7 +240,7 @@ export default function Header() {
       {mounted && createPortal(
         <AnimatePresence>
           {isMobileMenuOpen && (
-            <div className="fixed inset-0 z-50 lg:hidden pointer-events-auto">
+            <div className="fixed inset-0 z-50 xl:hidden pointer-events-auto">
               {/* Backdrop */}
               <motion.div 
                 initial={{ opacity: 0 }}
@@ -301,36 +313,56 @@ export default function Header() {
                 </div>
 
                 {/* Drawer Footer Actions */}
-                <div className="space-y-5 pt-6 border-t border-border-main">
+                <div className="space-y-3 pt-6 border-t border-border-main">
+                  <a
+                    href="https://crm.stepup-career.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 px-3 bg-indigo-600/10 border border-indigo-500/30 text-indigo-400 font-bold rounded-lg text-xs transition-colors flex items-center justify-center gap-2"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+                    <span>Access CRM Portal &rarr;</span>
+                  </a>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link 
+                      href="/#project-configurator" 
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="py-2.5 px-2 bg-bg-card border border-border-main text-text-heading text-center font-bold rounded-lg text-xs hover:border-brand-accent transition-colors"
+                    >
+                      Start Project
+                    </Link>
+
+                    <Link 
+                      href="/apply" 
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="py-2.5 px-2 bg-brand-accent hover:bg-brand-accent-hover text-white text-center font-bold rounded-lg text-xs shadow-sm transition-all"
+                    >
+                      Apply Now
+                    </Link>
+                  </div>
+
                   {/* Social media inside mobile menu */}
-                  <div className="flex items-center gap-4 justify-center">
+                  <div className="flex items-center gap-4 justify-center pt-2">
                     <a 
                       href="https://www.linkedin.com/company/stepupcareer/" 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="text-text-body hover:text-brand-accent p-2.5 rounded-lg border border-border-main bg-bg-card transition-colors"
+                      className="text-text-body hover:text-brand-accent p-2 rounded-lg border border-border-main bg-bg-card transition-colors"
                       title="LinkedIn"
                     >
-                      <LinkedinIcon size={20} />
+                      <LinkedinIcon size={18} />
                     </a>
                     <a 
                       href="https://www.instagram.com/step_upcareer/" 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="text-text-body hover:text-brand-accent p-2.5 rounded-lg border border-border-main bg-bg-card transition-colors"
+                      className="text-text-body hover:text-brand-accent p-2 rounded-lg border border-border-main bg-bg-card transition-colors"
                       title="Instagram"
                     >
-                      <InstagramIcon size={20} />
+                      <InstagramIcon size={18} />
                     </a>
                   </div>
-
-                  <Link 
-                    href="/apply" 
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="w-full py-3 bg-brand-accent hover:bg-brand-accent-hover text-white text-center font-bold rounded-lg block shadow-sm text-sm active:scale-98 transition-transform touch-manipulation"
-                  >
-                    Apply Now
-                  </Link>
                 </div>
               </motion.div>
             </div>

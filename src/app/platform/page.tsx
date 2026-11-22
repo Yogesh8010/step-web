@@ -82,23 +82,23 @@ export default function PlatformPage() {
               <Laptop size={14} /> Enterprise Recruitment OS • CRM + ATS + HRMS
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-text-heading font-heading tracking-tight leading-[1.1]">
-              The Unified Operating System for <br />
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-text-heading font-heading tracking-tight leading-[1.1] break-words">
+              The Unified Operating System for <br className="hidden sm:inline" />
               <span className="bg-gradient-to-r from-blue-600 via-sky-500 to-teal-500 bg-clip-text text-transparent">
                 High-Velocity Talent Delivery
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg text-text-body max-w-3xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-lg text-text-body max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
               Step-Up Career unifies corporate client CRM, high-speed multi-portal ATS sourcing, and internal team HRMS operations into one high-integrity cloud environment.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 px-2 sm:px-0">
               <a
                 href="https://crm.stepup-career.in"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm transition-all shadow-md shadow-indigo-600/25 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm transition-all shadow-md shadow-indigo-600/25 flex items-center justify-center gap-2"
               >
                 <span>Access Step-Up CRM Portal</span>
                 <ArrowRight size={16} />
@@ -108,7 +108,7 @@ export default function PlatformPage() {
                 href="https://wa.me/917697334430?text=Hi%20Step-Up%20Career,%20we%20are%20interested%20in%20learning%20more%20about%20your%20Recruitment%20CRM%20and%20ATS%20system."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 bg-bg-card hover:bg-border-main/80 text-text-heading border border-border-main font-bold rounded-xl text-sm transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-bg-card hover:bg-border-main/80 text-text-heading border border-border-main font-bold rounded-xl text-sm transition-all flex items-center justify-center gap-2"
               >
                 <span>Request Enterprise Demo</span>
               </a>
@@ -252,19 +252,20 @@ export default function PlatformPage() {
             <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
               If you are an authorized client, recruiter, or partner, sign in to your dashboard to manage mandates, review shortlists, or track team progress.
             </p>
-            <div className="pt-2 flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="pt-2 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <a
                 href="https://crm.stepup-career.in"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm transition-all shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm transition-all shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2"
               >
-                <span>Launch CRM Portal (crm.stepup-career.in)</span>
+                <span>Launch CRM Portal</span>
+                <span className="hidden sm:inline text-xs opacity-80">(crm.stepup-career.in)</span>
                 <ArrowRight size={16} />
               </a>
               <Link
                 href="/services"
-                className="px-8 py-4 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold rounded-xl text-sm transition-all flex items-center justify-center"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold rounded-xl text-sm transition-all flex items-center justify-center"
               >
                 <span>View All Services</span>
               </Link>

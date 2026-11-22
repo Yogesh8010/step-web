@@ -122,21 +122,21 @@ export default function AIDataPage() {
               <Database size={14} /> AI Data Operations &amp; Human-in-the-Loop Workflows
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-text-heading font-heading tracking-tight leading-[1.1]">
-              The Human-Powered Engine Behind <br />
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-text-heading font-heading tracking-tight leading-[1.1] break-words">
+              The Human-Powered Engine Behind <br className="hidden sm:inline" />
               <span className="text-brand-accent">High-Precision AI Data</span>
             </h1>
 
-            <p className="text-base sm:text-lg text-text-body max-w-3xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-lg text-text-body max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
               Step-Up Career provides the operational backbone for AI teams: mobilizing trained contributor cohorts, structuring raw inputs, executing precision annotation, and enforcing rigorous quality validation.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 px-2 sm:px-0">
               <a
                 href="https://wa.me/917697334430?text=Hi%20Step-Up%20Career,%20we%20would%20like%20to%20discuss%20an%20AI%20data%20operations%20project."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 bg-brand-accent hover:bg-brand-accent-hover text-white font-bold rounded-xl text-sm transition-all shadow-md flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-brand-accent hover:bg-brand-accent-hover text-white font-bold rounded-xl text-sm transition-all shadow-md flex items-center justify-center gap-2"
               >
                 <span>Discuss an AI Data Project</span>
                 <ArrowRight size={16} />
@@ -144,7 +144,7 @@ export default function AIDataPage() {
 
               <Link
                 href="/#project-configurator"
-                className="px-8 py-4 bg-bg-card hover:bg-border-main/80 text-text-heading border border-border-main font-bold rounded-xl text-sm transition-all flex items-center justify-center"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-bg-card hover:bg-border-main/80 text-text-heading border border-border-main font-bold rounded-xl text-sm transition-all flex items-center justify-center"
               >
                 <span>Interactive Scope Builder</span>
               </Link>
@@ -277,19 +277,19 @@ export default function AIDataPage() {
             <p className="text-sm sm:text-base text-text-body max-w-xl mx-auto">
               Share your guidelines, schema requirements, and volume expectations. Our team will review and provide a structured operational proposal.
             </p>
-            <div className="pt-2 flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="pt-2 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <a
                 href="https://wa.me/917697334430?text=Hi%20Step-Up%20Career,%20we%20have%20an%20AI%20Data%20project%20to%20discuss."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 bg-brand-accent hover:bg-brand-accent-hover text-white font-bold rounded-xl text-sm transition-all shadow-md inline-flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-brand-accent hover:bg-brand-accent-hover text-white font-bold rounded-xl text-sm transition-all shadow-md inline-flex items-center justify-center gap-2"
               >
                 <span>Connect with AI Operations Lead</span>
                 <Send size={15} />
               </a>
               <Link
                 href="/services"
-                className="px-8 py-4 bg-bg-main hover:bg-border-main text-text-heading border border-border-main font-bold rounded-xl text-sm transition-all inline-flex items-center justify-center"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-bg-main hover:bg-border-main text-text-heading border border-border-main font-bold rounded-xl text-sm transition-all inline-flex items-center justify-center"
               >
                 <span>View Workforce &amp; Staffing Services</span>
               </Link>

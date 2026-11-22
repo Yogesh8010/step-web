@@ -356,7 +356,7 @@ Please connect with me to discuss requirements.`;
                 </span>
               </div>
               
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-text-heading leading-[1.08] font-heading">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-text-heading leading-[1.08] font-heading break-words">
                 Powering AI Data Operations. <br />
                 <span className="text-brand-accent">Connecting Talent.</span>
               </h1>
@@ -450,7 +450,7 @@ Please connect with me to discuss requirements.`;
                         </div>
 
                         {/* Interactive Step Navigator */}
-                        <div className="grid grid-cols-4 gap-2">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                           {pipelineSteps.map((step, idx) => (
                             <button
                               key={idx}
@@ -465,7 +465,7 @@ Please connect with me to discuss requirements.`;
 
                         {/* Active Step Visual Canvas */}
                         <div className="p-4 rounded-xl bg-bg-main border border-border-main/80 space-y-3">
-                          <div className="flex items-center justify-between">
+                          <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-1.5">
                             <span className="px-2 py-0.5 rounded bg-brand-accent text-white text-[11px] font-bold">
                               {pipelineSteps[activePipelineStep].title}
                             </span>
@@ -478,16 +478,16 @@ Please connect with me to discuss requirements.`;
                             {pipelineSteps[activePipelineStep].desc}
                           </p>
 
-                          <div className="pt-2 border-t border-border-main/60 flex items-center justify-between text-[11px] font-mono text-text-body/70">
-                            <span>{pipelineSteps[activePipelineStep].telemetry}</span>
-                            <span className="px-2 py-0.5 rounded bg-bg-card border border-border-main text-text-heading font-semibold">
+                          <div className="pt-2 border-t border-border-main/60 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 text-[11px] font-mono text-text-body/70">
+                            <span className="truncate">{pipelineSteps[activePipelineStep].telemetry}</span>
+                            <span className="px-2 py-0.5 rounded bg-bg-card border border-border-main text-text-heading font-semibold shrink-0">
                               {pipelineSteps[activePipelineStep].sampleBadge}
                             </span>
                           </div>
                         </div>
 
                         {/* Highlights summary */}
-                        <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-center text-xs">
                           <div className="p-2.5 rounded-lg bg-bg-main border border-border-main">
                             <span className="text-[10px] text-text-body block uppercase font-bold">Modality</span>
                             <span className="text-xs font-bold text-text-heading">CV • NLP • Multimodal</span>
@@ -516,13 +516,13 @@ Please connect with me to discuss requirements.`;
                             <span className="text-[10px] uppercase font-bold text-brand-accent tracking-wider block">Enterprise Sourcing Network</span>
                             <h3 className="text-base font-bold text-text-heading font-heading">High-Velocity Workforce Sourcing</h3>
                           </div>
-                          <span className="px-2.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-600 dark:text-blue-400 text-xs font-bold flex items-center gap-1.5">
-                            <Zap size={12} /> 48h Turnaround SLA
+                          <span className="px-2.5 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-600 dark:text-blue-400 text-xs font-bold flex items-center gap-1.5 shrink-0">
+                            <Zap size={12} /> 48h SLA
                           </span>
                         </div>
 
                         {/* Sourcing Hubs Grid */}
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           <div className="p-3 rounded-xl bg-bg-main border border-border-main flex items-start gap-2.5">
                             <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-brand-accent flex items-center justify-center shrink-0">
                               <Cpu size={16} />
@@ -638,7 +638,7 @@ Please connect with me to discuss requirements.`;
             </p>
 
             {/* Pillar Selector Filter Tabs */}
-            <div className="flex items-center justify-center gap-2 mt-8">
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-8 px-2">
               <button
                 onClick={() => setSelectedPillar("all")}
                 className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${selectedPillar === "all" ? "bg-brand-accent text-white shadow-sm" : "bg-bg-card border border-border-main text-text-body hover:text-text-heading"}`}
@@ -833,7 +833,7 @@ Please connect with me to discuss requirements.`;
             </p>
           </div>
 
-          <div className="grid md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {deliverySteps.map((step, idx) => (
               <motion.div
                 key={idx}
@@ -1313,7 +1313,7 @@ Please connect with me to discuss requirements.`;
                   <label className="text-xs font-bold uppercase tracking-wider text-text-heading block mb-2">
                     1. Select Service Pillar
                   </label>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <button
                       type="button"
                       onClick={() => {
