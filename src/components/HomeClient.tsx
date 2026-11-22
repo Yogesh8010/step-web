@@ -878,18 +878,18 @@ Please connect with me to discuss requirements.`;
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wide uppercase mb-4">
               <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
-              Enterprise Recruitment OS • CRM + ATS + HRMS
+              🚀 Enterprise Recruitment CRM + ATS + HRMS
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white font-heading mb-4 leading-tight">
-              One Unified Engine for <br className="hidden sm:inline" />
+              Powering Modern Recruitment Agencies <br className="hidden sm:inline" />
               <span className="bg-gradient-to-r from-indigo-400 via-sky-400 to-teal-400 bg-clip-text text-transparent">
-                Clients, Candidates &amp; Internal Teams
+                from Sourcing to Payroll
               </span>
             </h2>
 
             <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-              Step-Up Career eliminates messy spreadsheets by unifying client commercial tracking, multi-portal ATS sourcing, and team HRMS operations into one high-velocity system.
+              Stop juggling multiple disjointed tools. Manage client mandates, source and screen candidates across portals, schedule interviews, track attendance, and generate payslips — all under one roof.
             </p>
           </div>
 
@@ -905,7 +905,7 @@ Please connect with me to discuss requirements.`;
             >
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/25 flex items-center justify-center text-indigo-400 text-xl font-bold mb-6 group-hover:scale-105 transition-transform">
-                  <Building2 size={24} />
+                  🎯
                 </div>
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl font-bold text-white font-heading">Recruitment CRM</h3>
@@ -913,6 +913,7 @@ Please connect with me to discuss requirements.`;
                     Client Side
                   </span>
                 </div>
+                <p className="text-xs font-semibold text-indigo-400 mb-2">Manage Clients &amp; Revenue</p>
                 <p className="text-xs sm:text-sm text-slate-400 mb-6 leading-relaxed">
                   Manage high-value corporate mandates, commercial terms, replacement warranties, and revenue operations.
                 </p>
@@ -920,26 +921,26 @@ Please connect with me to discuss requirements.`;
                 <ul className="space-y-3 text-xs sm:text-sm text-slate-300 pt-4 border-t border-slate-800">
                   <li className="flex items-start gap-2.5">
                     <span className="text-teal-400 font-bold shrink-0 mt-0.5">✓</span>
-                    <span>Client Commercials, MSA &amp; Fee Agreements</span>
+                    <span>Client contracts, commercial terms &amp; GST invoicing</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-teal-400 font-bold shrink-0 mt-0.5">✓</span>
-                    <span>18% GST Invoicing &amp; Payment Tracking</span>
+                    <span>Open job requisitions &amp; mandate tracking</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-teal-400 font-bold shrink-0 mt-0.5">✓</span>
-                    <span>Guarantee Tenure Countdown &amp; Replacement Alerts</span>
+                    <span>Guarantee tenure countdown &amp; replacement warranties</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-teal-400 font-bold shrink-0 mt-0.5">✓</span>
-                    <span>Client Magic Link Portal for Fast Review</span>
+                    <span>Client magic link portal for instant shortlist review</span>
                   </li>
                 </ul>
               </div>
 
               <div className="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between text-xs">
-                <span className="text-slate-400 font-mono">Revenue &amp; Mandates</span>
-                <span className="text-indigo-400 font-semibold">Real-Time Sync</span>
+                <span className="text-slate-400 font-mono">Mandates &amp; Invoicing</span>
+                <span className="text-indigo-400 font-semibold">18% GST Compliant</span>
               </div>
             </motion.div>
 
@@ -955,7 +956,7 @@ Please connect with me to discuss requirements.`;
 
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/25 flex items-center justify-center text-sky-400 text-xl font-bold mb-6 group-hover:scale-105 transition-transform">
-                  <Zap size={24} />
+                  ⚡
                 </div>
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl font-bold text-white font-heading">Applicant Tracking (ATS)</h3>
@@ -963,6 +964,7 @@ Please connect with me to discuss requirements.`;
                     Sourcing Engine
                   </span>
                 </div>
+                <p className="text-xs font-semibold text-sky-400 mb-2">Source &amp; Place Talent Faster</p>
                 <p className="text-xs sm:text-sm text-slate-400 mb-6 leading-relaxed">
                   Streamline multi-portal resume intake, interview scheduling, and candidate ownership pipelines.
                 </p>
@@ -970,19 +972,19 @@ Please connect with me to discuss requirements.`;
                 <ul className="space-y-3 text-xs sm:text-sm text-slate-300 pt-4 border-t border-slate-800">
                   <li className="flex items-start gap-2.5">
                     <span className="text-teal-400 font-bold shrink-0 mt-0.5">✓</span>
-                    <span>1-Click Bulk Resume Import (Naukri, Apna, LinkedIn)</span>
+                    <span>One-click bulk resume imports from Naukri, Apna &amp; LinkedIn</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-teal-400 font-bold shrink-0 mt-0.5">✓</span>
-                    <span>Zero Duplicate Engine (E.164 Phone Normalization)</span>
+                    <span>Multi-stage visual hiring pipeline (Screening to Joined)</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-teal-400 font-bold shrink-0 mt-0.5">✓</span>
-                    <span>Visual Kanban Pipeline (Screening &rarr; Joined)</span>
+                    <span>Duplicate phone &amp; email detection with ownership locking</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-teal-400 font-bold shrink-0 mt-0.5">✓</span>
-                    <span>Candidate WhatsApp &amp; Call Activity Logs</span>
+                    <span>Candidate calling logs, WhatsApp &amp; SMS automation</span>
                   </li>
                 </ul>
               </div>
@@ -1003,14 +1005,15 @@ Please connect with me to discuss requirements.`;
             >
               <div>
                 <div className="w-12 h-12 rounded-2xl bg-teal-500/10 border border-teal-500/25 flex items-center justify-center text-teal-400 text-xl font-bold mb-6 group-hover:scale-105 transition-transform">
-                  <Users size={24} />
+                  👥
                 </div>
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-white font-heading">Internal HRMS &amp; Ops</h3>
+                  <h3 className="text-xl font-bold text-white font-heading">HRMS &amp; Recruiter Tracking</h3>
                   <span className="px-2 py-0.5 rounded bg-teal-500/15 text-teal-300 text-[10px] font-bold uppercase tracking-wider">
                     Staff &amp; Payroll
                   </span>
                 </div>
+                <p className="text-xs font-semibold text-teal-400 mb-2">Empower Your Internal Team</p>
                 <p className="text-xs sm:text-sm text-slate-400 mb-6 leading-relaxed">
                   Track recruiter attendance, manage team leaves, monitor leaderboards, and automate payroll with PF deductions.
                 </p>
@@ -1018,19 +1021,19 @@ Please connect with me to discuss requirements.`;
                 <ul className="space-y-3 text-xs sm:text-sm text-slate-300 pt-4 border-t border-slate-800">
                   <li className="flex items-start gap-2.5">
                     <span className="text-teal-400 font-bold shrink-0 mt-0.5">✓</span>
-                    <span>1-Click Clock-In &amp; Real-Time Presence Board</span>
+                    <span>One-click attendance clock-in &amp; break timer</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-teal-400 font-bold shrink-0 mt-0.5">✓</span>
-                    <span>Leave Requests &amp; Manager Approval Workflows</span>
+                    <span>Leave application &amp; manager approval workflows</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-teal-400 font-bold shrink-0 mt-0.5">✓</span>
-                    <span>Automated Payroll with 12% PF &amp; LOP Deductions</span>
+                    <span>Department salary structure &amp; 12% PF calculation</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-teal-400 font-bold shrink-0 mt-0.5">✓</span>
-                    <span>Recruiter Targets, Calling SLAs &amp; Leaderboards</span>
+                    <span>Real-time team presence board &amp; recruiter leaderboards</span>
                   </li>
                 </ul>
               </div>
@@ -1046,15 +1049,15 @@ Please connect with me to discuss requirements.`;
           <div className="mt-14 p-6 rounded-2xl bg-slate-900/60 border border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
             <div>
               <span className="text-2xl font-extrabold text-indigo-400 font-heading block">Zero Duplicate Profiles</span>
-              <span className="text-xs text-slate-400">E.164 phone &amp; email normalization guarantees clean data</span>
+              <span className="text-xs text-slate-400">E.164 phone &amp; email normalization guarantees clean talent databases.</span>
             </div>
             <div>
               <span className="text-2xl font-extrabold text-sky-400 font-heading block">3x Faster Turnaround</span>
-              <span className="text-xs text-slate-400">1-click resume parsing across Naukri, Apna &amp; LinkedIn</span>
+              <span className="text-xs text-slate-400">Automated candidate parsing and 1-click portal synchronization.</span>
             </div>
             <div>
               <span className="text-2xl font-extrabold text-teal-400 font-heading block">100% Data Security</span>
-              <span className="text-xs text-slate-400">Role-based permissions, contact masking &amp; audit trails</span>
+              <span className="text-xs text-slate-400">Multi-tenant role-based permissions, contact masking, and audit trails.</span>
             </div>
           </div>
 
@@ -1066,15 +1069,24 @@ Please connect with me to discuss requirements.`;
               rel="noopener noreferrer"
               className="w-full sm:w-auto px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-xl shadow-indigo-600/30 transition-all flex items-center justify-center gap-2"
             >
-              <span>Access Step-Up CRM Portal</span>
+              <span>Access CRM Portal</span>
               <ArrowRight size={16} />
             </a>
 
-            <Link
-              href="/platform"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-sm transition-all flex items-center justify-center"
+            <a
+              href="https://wa.me/917697334430?text=Hi%20Step-Up%20Career,%20we%20want%20to%20request%20client%20access%20to%20your%20Recruitment%20CRM."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-sm transition-all flex items-center justify-center gap-2"
             >
-              <span>Explore Recruitment OS Architecture</span>
+              <span>Request Client Access</span>
+            </a>
+
+            <Link
+              href="/crm"
+              className="w-full sm:w-auto px-6 py-4 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+            >
+              View Full OS Specs &rarr;
             </Link>
           </div>
         </div>

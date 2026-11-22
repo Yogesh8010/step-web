@@ -81,7 +81,7 @@ export default function Header() {
     { name: "Home", href: "/" },
     { name: "AI Data Ops", href: "/ai-data", badge: "New" },
     { name: "Workforce", href: "/services" },
-    { name: "Recruitment OS", href: "/platform", badge: "CRM" },
+    { name: "Recruitment OS", href: "/crm", badge: "CRM" },
     { name: "Jobs", href: "/jobs" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "https://wa.me/917697334430" }

@@ -83,7 +83,7 @@ export default function Footer() {
           <h4 className="text-text-heading font-bold text-sm mb-6 tracking-wider uppercase">Quick Links</h4>
           <ul className="space-y-3 text-sm text-text-body">
             <li><Link href="/" onClick={handleHomeClick} className="hover:text-brand-accent transition-colors">Home</Link></li>
-            <li><Link href="/platform" className="hover:text-brand-accent transition-colors font-semibold text-indigo-500">Recruitment OS (CRM)</Link></li>
+            <li><Link href="/crm" className="hover:text-brand-accent transition-colors font-semibold text-indigo-500">Recruitment OS (CRM)</Link></li>
             <li><Link href="/ai-data" className="hover:text-brand-accent transition-colors">AI Data Operations</Link></li>
             <li><Link href="/services" className="hover:text-brand-accent transition-colors">Workforce Solutions</Link></li>
             <li><Link href="/jobs" className="hover:text-brand-accent transition-colors">Find Jobs</Link></li>
