@@ -83,6 +83,7 @@ export default function Footer() {
           <h4 className="text-text-heading font-bold text-sm mb-6 tracking-wider uppercase">Quick Links</h4>
           <ul className="space-y-3 text-sm text-text-body">
             <li><Link href="/" onClick={handleHomeClick} className="hover:text-brand-accent transition-colors">Home</Link></li>
+            <li><Link href="/about" className="hover:text-brand-accent transition-colors">About Us</Link></li>
             <li><Link href="/crm" className="hover:text-brand-accent transition-colors font-semibold text-indigo-500">Recruitment OS (CRM)</Link></li>
             <li><Link href="/ai-data" className="hover:text-brand-accent transition-colors">AI Data Operations</Link></li>
             <li><Link href="/services" className="hover:text-brand-accent transition-colors">Workforce Solutions</Link></li>
@@ -143,8 +144,8 @@ export default function Footer() {
           <div>
             <h4 className="text-text-heading font-bold text-sm mb-3 tracking-wider uppercase">Legal</h4>
             <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-text-body">
-              <li><Link href="#" className="hover:text-brand-accent transition-colors">Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-brand-accent transition-colors">Terms of Service</Link></li>
+              <li><Link href="/privacy" className="hover:text-brand-accent transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="hover:text-brand-accent transition-colors">Terms of Service</Link></li>
             </ul>
           </div>
         </div>

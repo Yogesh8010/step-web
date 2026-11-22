@@ -323,10 +323,10 @@ Please connect with me to discuss requirements.`;
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex items-center justify-between mb-8 pb-3 border-b border-border-main/60 text-[11px] text-text-body font-medium"
+            className="flex flex-wrap items-center justify-between mb-8 pb-3 border-b border-border-main/60 text-[11px] text-text-body font-medium gap-2"
           >
             <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
+              <span className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
@@ -1460,14 +1460,14 @@ Please connect with me to discuss requirements.`;
       </section>
 
       {/* Partner Logos / Sectors Banner */}
-      <section className="py-16 bg-bg-main relative z-10 transition-colors">
+      <section className="py-16 bg-bg-main relative z-10 transition-colors overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <p className="text-center text-xs font-semibold uppercase tracking-wider text-text-body mb-8">
             Supporting critical industrial &amp; technology workflows across India
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 opacity-60 dark:opacity-40">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 md:gap-12 opacity-60 dark:opacity-40">
             {["AI & Data Teams", "EMS & Electronics Assembly", "Manufacturing & Heavy Engineering", "EdTech & Education", "Information Technology", "Enterprise Operations"].map((sector, i) => (
-              <span key={i} className="text-sm sm:text-base font-bold tracking-wider text-text-body font-heading whitespace-nowrap">
+              <span key={i} className="text-sm sm:text-base font-bold tracking-wider text-text-body font-heading text-center">
                 {sector}
               </span>
             ))}

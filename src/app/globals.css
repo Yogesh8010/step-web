@@ -48,11 +48,12 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 * {
   -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
 }
 
 body {
@@ -60,7 +61,8 @@ body {
   color: var(--text-body);
   font-family: var(--font-sans);
   min-height: 100vh;
-  overflow-x: clip;
+  overflow-x: hidden;
+  max-width: 100vw;
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -68,6 +70,12 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   color: var(--text-heading);
   font-weight: 700;
+}
+
+/* Prevent any child from causing horizontal scroll */
+.overflow-guard {
+  overflow-x: hidden;
+  position: relative;
 }
 
 /* Custom Scrollbar */
