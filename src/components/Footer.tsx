@@ -55,7 +55,7 @@ export default function Footer() {
             />
           </Link>
           <p className="text-text-body text-sm leading-relaxed max-w-sm">
-            Empowering futures and connecting top talent with industry-leading companies across India.
+            AI Data Operations, Workforce &amp; Talent Solutions. Connecting data pipelines and high-velocity talent across India.
           </p>
           
           {/* Newsletter */}
@@ -83,22 +83,24 @@ export default function Footer() {
           <h4 className="text-text-heading font-bold text-sm mb-6 tracking-wider uppercase">Quick Links</h4>
           <ul className="space-y-3 text-sm text-text-body">
             <li><Link href="/" onClick={handleHomeClick} className="hover:text-brand-accent transition-colors">Home</Link></li>
-            <li><Link href="/about" className="hover:text-brand-accent transition-colors">About Us</Link></li>
+            <li><Link href="/platform" className="hover:text-brand-accent transition-colors font-semibold text-indigo-500">Recruitment OS (CRM)</Link></li>
+            <li><Link href="/ai-data" className="hover:text-brand-accent transition-colors">AI Data Operations</Link></li>
+            <li><Link href="/services" className="hover:text-brand-accent transition-colors">Workforce Solutions</Link></li>
             <li><Link href="/jobs" className="hover:text-brand-accent transition-colors">Find Jobs</Link></li>
-            <li><Link href="/services" className="hover:text-brand-accent transition-colors">Services</Link></li>
-            <li><a href="https://wa.me/917697334430" target="_blank" rel="noopener noreferrer" className="hover:text-brand-accent transition-colors">Contact Support</a></li>
+            <li><a href="https://crm.stepup-career.in" target="_blank" rel="noopener noreferrer" className="hover:text-brand-accent transition-colors text-indigo-400 font-medium">CRM Portal Login &rarr;</a></li>
           </ul>
         </div>
 
         {/* Services */}
         <div>
-          <h4 className="text-text-heading font-bold text-sm mb-6 tracking-wider uppercase">Services</h4>
+          <h4 className="text-text-heading font-bold text-sm mb-6 tracking-wider uppercase">Key Capabilities</h4>
           <ul className="space-y-3 text-sm text-text-body">
-            <li><Link href="/services#ems-electronics" className="hover:text-brand-accent transition-colors">EMS & Electronics</Link></li>
+            <li><Link href="/ai-data#annotation-labelling" className="hover:text-brand-accent transition-colors">Data Annotation &amp; QA</Link></li>
+            <li><Link href="/ai-data#data-collection" className="hover:text-brand-accent transition-colors">Multimodal Data Collection</Link></li>
+            <li><Link href="/services#ems-electronics" className="hover:text-brand-accent transition-colors">EMS &amp; Electronics Staffing</Link></li>
             <li><Link href="/services#manufacturing-engineering" className="hover:text-brand-accent transition-colors">Manufacturing Staffing</Link></li>
-            <li><Link href="/services#edtech-recruitment" className="hover:text-brand-accent transition-colors">EdTech Recruitment</Link></li>
-            <li><Link href="/services#it-recruitment" className="hover:text-brand-accent transition-colors">IT Recruitment</Link></li>
-            <li><Link href="/services#bulk-hiring" className="hover:text-brand-accent transition-colors">Bulk Staffing</Link></li>
+            <li><Link href="/services#it-recruitment" className="hover:text-brand-accent transition-colors">IT &amp; Software Recruitment</Link></li>
+            <li><Link href="/services#bulk-hiring" className="hover:text-brand-accent transition-colors">Bulk Staffing Drives</Link></li>
           </ul>
         </div>
 

@@ -79,10 +79,10 @@ export default function Header() {
 
   const navLinks = [
     { name: "Home", href: "/" },
+    { name: "AI Data Ops", href: "/ai-data", badge: "New" },
+    { name: "Workforce", href: "/services" },
+    { name: "Recruitment OS", href: "/platform", badge: "CRM" },
     { name: "Jobs", href: "/jobs" },
-    { name: "Services", href: "/services" },
-    { name: "Employers", href: "/services#employers" },
-    { name: "Candidates", href: "/services#candidates" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "https://wa.me/917697334430" }
   ];
@@ -115,9 +115,14 @@ export default function Header() {
                 key={link.name} 
                 href={link.href} 
                 onClick={link.href === "/" ? handleHomeClick : undefined}
-                className="text-text-body hover:text-brand-accent transition-colors"
+                className="text-text-body hover:text-brand-accent transition-colors flex items-center gap-1.5"
               >
-                {link.name}
+                <span>{link.name}</span>
+                {link.badge && (
+                  <span className="px-1.5 py-0.2 rounded bg-brand-accent/15 text-brand-accent text-[9px] font-extrabold uppercase tracking-wider">
+                    {link.badge}
+                  </span>
+                )}
               </Link>
             ))}
           </nav>
@@ -158,20 +163,32 @@ export default function Header() {
               {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
             </button>
 
-            {/* Employers CTA */}
-            <Link 
-              href="/services#employers" 
-              className="text-sm font-semibold text-text-body hover:text-brand-accent transition-colors px-3 py-2 border border-border-main rounded-lg hover:bg-bg-card"
+            {/* CRM Portal Access */}
+            <a 
+              href="https://crm.stepup-career.in"
+              target="_blank"
+              rel="noopener noreferrer" 
+              className="text-xs font-bold text-indigo-500 hover:text-indigo-400 bg-indigo-500/10 hover:bg-indigo-500/20 px-3 py-2 rounded-lg border border-indigo-500/30 transition-colors flex items-center gap-1.5"
+              title="Access Step-Up CRM & ATS Portal"
             >
-              Hire Talent
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+              <span>CRM Portal</span>
+            </a>
+
+            {/* Start a Project CTA */}
+            <Link 
+              href="/#project-configurator" 
+              className="text-xs font-bold text-text-heading hover:text-brand-accent transition-colors px-3.5 py-2 border border-border-main rounded-lg hover:bg-bg-card"
+            >
+              Start a Project
             </Link>
 
             {/* Candidate Apply Now CTA */}
             <Link 
-              href="/apply" 
-              className="inline-flex items-center justify-center px-4 py-2 bg-brand-accent hover:bg-brand-accent-hover text-white text-sm font-semibold rounded-lg transition-all hover:scale-102 shadow-sm"
+              href="/jobs" 
+              className="inline-flex items-center justify-center px-4 py-2 bg-brand-accent hover:bg-brand-accent-hover text-white text-xs font-bold rounded-lg transition-all hover:scale-102 shadow-sm"
             >
-              Apply Now
+              Explore Jobs
             </Link>
           </div>
 
@@ -270,9 +287,14 @@ export default function Header() {
                             setIsMobileMenuOpen(false);
                           }
                         }} 
-                        className="py-2 px-3 rounded-lg text-text-body hover:text-brand-accent hover:bg-bg-card transition-colors active:bg-bg-card touch-manipulation"
+                        className="py-2.5 px-3 rounded-lg text-text-body hover:text-brand-accent hover:bg-bg-card transition-colors active:bg-bg-card touch-manipulation flex items-center justify-between"
                       >
-                        {link.name}
+                        <span>{link.name}</span>
+                        {link.badge && (
+                          <span className="px-2 py-0.5 rounded-full bg-brand-accent/15 text-brand-accent text-[10px] font-extrabold uppercase tracking-wider">
+                            {link.badge}
+                          </span>
+                        )}
                       </Link>
                     ))}
                   </nav>
