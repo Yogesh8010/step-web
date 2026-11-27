@@ -333,12 +333,13 @@ export default function HomeClient({ featuredJobs }: { featuredJobs: Job[] }) {
   ];
 
   const buildWhatsappConfiguratorUrl = () => {
-    const text = `Hi Step-Up Career, I would like to enquire about:
+    const text = `[Employer/Client Requirement Enquiry]
+Hi Step-Up Career, our organization would like to discuss requirements:
 - Pillar: ${configService === "ai-data" ? "AI Data Operations" : "Talent & Workforce Solutions"}
-- Service: ${configSubtype}
-- Scope/Volume: ${configVolume}
-- Timeline: ${configTimeline}
-Please connect with me to discuss requirements.`;
+- Focus Area: ${configSubtype}
+- Scope/Hiring Volume: ${configVolume}
+- Target Timeline: ${configTimeline}
+Please connect with our team to discuss engagement models.`;
     return `https://wa.me/917697334430?text=${encodeURIComponent(text)}`;
   };
 
@@ -1415,16 +1416,35 @@ Please connect with me to discuss requirements.`;
             <div className="absolute top-0 right-0 w-80 h-80 bg-brand-accent/10 rounded-full filter blur-3xl pointer-events-none"></div>
 
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-accent/10 text-brand-accent text-xs font-semibold mb-3 border border-brand-accent/20">
-                <Sliders size={13} /> Project Scope Configurator
+              <div className="flex flex-wrap items-center gap-2 mb-3">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-500 text-xs font-bold border border-indigo-500/25">
+                  <Building2 size={13} /> For Companies &amp; Employers
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-accent/10 text-brand-accent text-xs font-semibold border border-brand-accent/20">
+                  <Sliders size={13} /> Business Requirement Builder
+                </span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-text-heading font-heading mb-3">
-                Configure Your Project Requirement
+                Hire Talent or Scope an AI Data Project
               </h2>
-              <p className="text-sm text-text-body max-w-2xl mb-8">
-                Select your parameters below to generate an immediate structured scope. Our delivery team will review and respond with estimated turnarounds.
+              <p className="text-sm text-text-body max-w-2xl mb-6">
+                Are you an enterprise, HR manager, or project lead? Select your specifications below to receive an operational scope and estimated turnaround from our delivery team.
               </p>
+
+              {/* Job seeker redirect banner */}
+              <div className="p-3.5 rounded-xl bg-bg-main border border-border-main flex flex-col sm:flex-row items-center justify-between gap-3 mb-8 shadow-sm">
+                <div className="flex items-center gap-2.5 text-xs text-text-body">
+                  <span className="text-base">👤</span>
+                  <span><strong>Are you a candidate seeking a job?</strong> This form is for corporate employers only.</span>
+                </div>
+                <Link
+                  href="/jobs"
+                  className="w-full sm:w-auto px-4 py-2 rounded-lg bg-brand-accent/10 text-brand-accent hover:bg-brand-accent hover:text-white text-xs font-bold transition-all shrink-0 flex items-center justify-center gap-1"
+                >
+                  <span>Browse Jobs &amp; Apply Free</span> &rarr;
+                </Link>
+              </div>
 
               <div className="space-y-6">
                 {/* 1. Pillar Selection */}
@@ -1528,9 +1548,9 @@ Please connect with me to discuss requirements.`;
 
                 {/* Action Buttons */}
                 <div className="pt-4 border-t border-border-main/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <div className="text-xs text-text-body">
-                    <span className="font-semibold text-text-heading block">Zero Obligation Review</span>
-                    <span>Direct response from our operations team</span>
+                  <div className="text-xs text-text-body text-center sm:text-left">
+                    <span className="font-semibold text-text-heading block">🏢 Corporate &amp; Client Enquiries Only</span>
+                    <span>Job seekers: please apply via our <Link href="/jobs" className="text-brand-accent hover:underline font-semibold">Job Board</Link></span>
                   </div>
 
                   <a
@@ -1539,7 +1559,7 @@ Please connect with me to discuss requirements.`;
                     rel="noopener noreferrer"
                     className="w-full sm:w-auto px-8 py-3.5 bg-brand-accent hover:bg-brand-accent-hover text-white font-bold rounded-xl text-sm transition-all shadow-md flex items-center justify-center gap-2"
                   >
-                    <span>Submit &amp; Discuss via WhatsApp</span>
+                    <span>Submit Employer Enquiry via WhatsApp</span>
                     <Send size={15} />
                   </a>
                 </div>
